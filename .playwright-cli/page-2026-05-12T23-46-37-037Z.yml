@@ -1,0 +1,80 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - img [ref=e5]
+        - generic [ref=e9]: CLPMonitor
+      - navigation [ref=e10]:
+        - button "Pool Monitor" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - text: Pool Monitor
+        - button "Wallet Tracker" [active] [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Wallet Tracker
+    - generic [ref=e17]:
+      - generic [ref=e20]: 60 pools loaded (4 errors)
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - combobox "Auto-refresh interval" [ref=e23] [cursor=pointer]:
+            - option "15s"
+            - option "30s"
+            - option "60s" [selected]
+            - option "5 min"
+            - option "Manual"
+          - button "Refresh now" [ref=e24] [cursor=pointer]:
+            - img [ref=e25]
+        - button "Configure columns" [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+        - button "Toggle theme" [ref=e30] [cursor=pointer]:
+          - img [ref=e31]
+  - main [ref=e34]:
+    - generic [ref=e2658]:
+      - generic [ref=e2660]:
+        - heading "Wallet Tracker" [level=1] [ref=e2661]
+        - generic [ref=e2662]: Add a wallet to start tracking
+      - generic [ref=e2664]:
+        - textbox "Enter Ethereum (0x...) or Solana address" [ref=e2665]
+        - combobox [ref=e2666] [cursor=pointer]:
+          - option "Auto-detect" [selected]
+          - option "Ethereum"
+          - option "Base"
+          - option "Arbitrum"
+          - option "Polygon"
+          - option "BSC"
+          - option "Solana"
+        - button "Track Wallet" [ref=e2667] [cursor=pointer]
+      - generic [ref=e2669]:
+        - combobox [ref=e2670] [cursor=pointer]:
+          - option "All Status" [selected]
+          - option "In Range"
+          - option "Out of Range"
+        - combobox [ref=e2671] [cursor=pointer]:
+          - 'option "Sort: Urgency" [selected]'
+          - 'option "Sort: Health"'
+          - 'option "Sort: PnL"'
+          - 'option "Sort: Status"'
+      - generic [ref=e2673]:
+        - img [ref=e2675]
+        - heading "No wallets tracked" [level=3] [ref=e2678]
+        - paragraph [ref=e2679]: Enter an Ethereum or Solana address to view your concentrated liquidity positions. Supports Uniswap V3 on Ethereum, Arbitrum, Polygon, and Base.
+  - generic [ref=e2680]:
+    - generic [ref=e2681]:
+      - generic [ref=e2682]: ⚠
+      - generic [ref=e2683]: "Failed: uniswap_v3 on polygon — Failed to fetch"
+      - button "✕" [ref=e2684] [cursor=pointer]
+    - generic [ref=e2685]:
+      - generic [ref=e2686]: ⚠
+      - generic [ref=e2687]: "Failed: uniswap_v3 on bsc — Failed to fetch"
+      - button "✕" [ref=e2688] [cursor=pointer]
+    - generic [ref=e2689]:
+      - generic [ref=e2690]: ⚠
+      - generic [ref=e2691]: "Failed: orca on solana — Failed to fetch"
+      - button "✕" [ref=e2692] [cursor=pointer]
+    - generic [ref=e2693]:
+      - generic [ref=e2694]: ⚠
+      - generic [ref=e2695]: "Failed: raydium on solana — Failed to fetch"
+      - button "✕" [ref=e2696] [cursor=pointer]
+    - generic [ref=e2697]:
+      - generic [ref=e2698]: ✓
+      - generic [ref=e2699]: Loaded 60 pools from 4 protocols
+      - button "✕" [ref=e2700] [cursor=pointer]

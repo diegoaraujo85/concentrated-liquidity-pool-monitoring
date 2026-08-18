@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLP Monitor — Concentrated Liquidity Pool Dashboard</title>
+  <meta name="description" content="Monitor concentrated liquidity pools across Uniswap, Orca, and Raydium. Track positions, analyze ranges, and find the best LP opportunities.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Critical inline styles for initial render */
+    body { margin: 0; background: var(--bg-primary); color: var(--text-primary); font-family: 'DM Sans', sans-serif; }
+    .initial-loader { display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column; gap: 16px; }
+    .initial-loader .spinner { width: 40px; height: 40px; border: 3px solid var(--border-primary); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header" id="app-header">
+    <div class="header-left">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="logo-icon">
+          <path d="M12 2L22 12L12 22L2 12L12 2Z" fill="var(--accent-primary)" opacity="0.9"/>
+          <path d="M12 6L18 12L12 18L6 12L12 6Z" fill="var(--bg-primary)" opacity="0.6"/>
+          <path d="M12 9L15 12L12 15L9 12L12 9Z" fill="var(--accent-primary)"/>
+        </svg>
+        <span class="logo-text">CLP<span class="logo-accent">Monitor</span></span>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <button class="nav-tab active" data-page="monitor">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 1h6v6H1V1zm8 0h6v6H9V1zM1 9h6v6H1V9zm8 0h6v6H9V9z" opacity="0.8"/></svg>
+          Pool Monitor
+        </button>
+        <button class="nav-tab" data-page="tracker">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 2a6 6 0 110 12A6 6 0 018 2zm0 2a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z" opacity="0.8"/></svg>
+          Wallet Tracker
+        </button>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="header-status" id="header-status">
+        <span class="status-dot" id="status-dot"></span>
+        <span class="status-text" id="status-text">Initializing...</span>
+      </div>
+      <div class="header-controls">
+        <div class="refresh-control">
+          <select id="refresh-interval" class="select-sm" title="Auto-refresh interval">
+            <option value="15s">15s</option>
+            <option value="30s">30s</option>
+            <option value="60s" selected>60s</option>
+            <option value="5min">5 min</option>
+            <option value="manual">Manual</option>
+          </select>
+          <button class="btn-icon" id="btn-refresh" title="Refresh now">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.65 2.35A8 8 0 1016 8h-2a6 6 0 11-1.76-4.24L10 6h6V0l-2.35 2.35z"/></svg>
+          </button>
+        </div>
+        <button class="btn-icon" id="btn-columns" title="Configure columns">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1h4v14H0V1zm6 0h4v14H6V1zm6 0h4v14h-4V1z" opacity="0.8"/></svg>
+        </button>
+        <button class="btn-icon" id="btn-theme" title="Toggle theme">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" id="theme-icon"><path d="M8 0a8 8 0 000 16V0z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="progress-top" id="progress-bar" style="display:none;">
+    <div class="progress-top-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="app-main" id="app-content">
+    <div class="initial-loader" id="initial-loader">
+      <div class="spinner"></div>
+      <span style="color: var(--text-secondary); font-size: 14px;">Loading CLP Monitor...</span>
+    </div>
+  </main>
+
+  <!-- Column Configuration Modal -->
+  <div class="modal-overlay" id="column-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Configure Columns</h3>
+        <button class="btn-icon modal-close" id="modal-close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.2 3.8L8 8l4.2 4.2-1.4 1.4L6.6 9.4l-4.2 4.2-1.4-1.4L5.2 8 1 3.8l1.4-1.4L6.6 6.6l4.2-4.2z"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <div class="modal-presets" id="modal-presets"></div>
+        <div class="modal-columns" id="modal-columns"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="modal-apply">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Pool Detail Drawer (hidden by default) -->
+  <div class="drawer-overlay" id="pool-drawer" style="display:none;">
+    <div class="drawer">
+      <div class="drawer-header">
+        <h3 class="drawer-title" id="drawer-title">Pool Details</h3>
+        <button class="btn-icon" id="drawer-close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.2 3.8L8 8l4.2 4.2-1.4 1.4L6.6 9.4l-4.2 4.2-1.4-1.4L5.2 8 1 3.8l1.4-1.4L6.6 6.6l4.2-4.2z"/></svg>
+        </button>
+      </div>
+      <div class="drawer-body" id="drawer-body"></div>
+    </div>
+  </div>
+
+  <!-- Scripts (order matters) -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

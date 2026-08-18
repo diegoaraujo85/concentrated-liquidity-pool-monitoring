@@ -1,0 +1,1089 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - img [ref=e5]
+        - generic [ref=e9]: CLPMonitor
+      - navigation [ref=e10]:
+        - button "Pool Monitor" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - text: Pool Monitor
+        - button "Wallet Tracker" [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Wallet Tracker
+    - generic [ref=e17]:
+      - generic [ref=e20]: "Auto-refresh: 60s"
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - combobox "Auto-refresh interval" [ref=e23] [cursor=pointer]:
+            - option "15s"
+            - option "30s"
+            - option "60s" [selected]
+            - option "5 min"
+            - option "Manual"
+          - button "Refresh now" [ref=e24] [cursor=pointer]:
+            - img [ref=e25]
+        - button "Configure columns" [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+        - button "Toggle theme" [ref=e30] [cursor=pointer]:
+          - img [ref=e31]
+  - main [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - heading "Pool Monitor" [level=1] [ref=e38]
+          - generic [ref=e39]: 40 of 40 pools · 5 sources failed
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - button "Conservative" [ref=e42] [cursor=pointer]
+            - button "Aggressive" [ref=e43] [cursor=pointer]
+          - generic [ref=e44]:
+            - img
+            - textbox "Search tokens, pairs, addresses..." [ref=e45]
+      - generic [ref=e47] [cursor=pointer]:
+        - img [ref=e48]
+        - text: Filters
+      - generic [ref=e115]:
+        - generic [ref=e116]:
+          - generic [ref=e117]: Total TVL
+          - generic [ref=e118]: $640.99M
+        - generic [ref=e119]:
+          - generic [ref=e120]: Total Volume 24h
+          - generic [ref=e121]: $382.40M
+        - generic [ref=e122]:
+          - generic [ref=e123]: Avg APR (est.)
+          - generic [ref=e124]: 118.4%
+          - generic [ref=e125]: Based on 24h volume
+        - generic [ref=e126]:
+          - generic [ref=e127]: Pools In Range
+          - generic [ref=e128]: 40/40
+        - generic [ref=e129]:
+          - generic [ref=e130]: Top Score
+          - generic [ref=e131]: "78.7"
+        - generic [ref=e132]:
+          - generic [ref=e133]: Networks
+          - generic [ref=e134]: "2"
+      - generic [ref=e50]:
+        - table [ref=e136]:
+          - rowgroup [ref=e137]:
+            - row "Protocol Network Pair Fee Tier TVL Age Vol/TVL Volatility Risk Exit Prob. Score ▾ Data Quality Link" [ref=e138]:
+              - columnheader "Protocol" [ref=e139] [cursor=pointer]
+              - columnheader "Network" [ref=e140] [cursor=pointer]
+              - columnheader "Pair" [ref=e141] [cursor=pointer]
+              - columnheader "Fee Tier" [ref=e142] [cursor=pointer]
+              - columnheader "TVL" [ref=e143] [cursor=pointer]
+              - columnheader "Age" [ref=e144] [cursor=pointer]
+              - columnheader "Vol/TVL" [ref=e145] [cursor=pointer]
+              - columnheader "Volatility" [ref=e146] [cursor=pointer]
+              - columnheader "Risk" [ref=e147] [cursor=pointer]
+              - columnheader "Exit Prob." [ref=e148] [cursor=pointer]
+              - columnheader "Score ▾" [ref=e149] [cursor=pointer]
+              - columnheader "Data Quality" [ref=e150] [cursor=pointer]
+              - columnheader "Link" [ref=e151] [cursor=pointer]
+          - rowgroup [ref=e152]:
+            - row "Uniswap V3 Ethereum USDC/WETH volatile 0.01% $7.48M 4y 134d 8.598 0.3% Low 5% 78.7 ● good ↗" [ref=e153] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e154]:
+                - generic [ref=e155]: Uniswap V3
+              - cell "Ethereum" [ref=e156]:
+                - generic [ref=e157]: Ethereum
+              - cell "USDC/WETH volatile" [ref=e158]:
+                - generic [ref=e159]:
+                  - strong [ref=e160]: USDC/WETH
+                  - generic [ref=e161]: volatile
+              - cell "0.01%" [ref=e162]
+              - cell "$7.48M" [ref=e163]
+              - cell "4y 134d" [ref=e164]
+              - cell "8.598" [ref=e165]
+              - cell "0.3%" [ref=e166]
+              - cell "Low" [ref=e167]:
+                - generic [ref=e168]: Low
+              - cell "5%" [ref=e169]
+              - cell "78.7" [ref=e170]:
+                - 'generic "Score: 78.7" [ref=e171]':
+                  - generic [ref=e173]: "78.7"
+              - cell "● good" [ref=e174]:
+                - generic "5/5 metrics confirmed" [ref=e175]: ● good
+              - cell "↗" [ref=e176]:
+                - link "↗" [ref=e177]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0xe0554a476a092703abdb3ef35c80e0d76d32939f
+            - row "Uniswap V3 Base USDC/WETH volatile 0.05% $13.60M 2y 50d 1.059 0.1% Low 5% 77.7 ● good ↗" [ref=e178] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e179]:
+                - generic [ref=e180]: Uniswap V3
+              - cell "Base" [ref=e181]:
+                - generic [ref=e182]: Base
+              - cell "USDC/WETH volatile" [ref=e183]:
+                - generic [ref=e184]:
+                  - strong [ref=e185]: USDC/WETH
+                  - generic [ref=e186]: volatile
+              - cell "0.05%" [ref=e187]
+              - cell "$13.60M" [ref=e188]
+              - cell "2y 50d" [ref=e189]
+              - cell "1.059" [ref=e190]
+              - cell "0.1%" [ref=e191]
+              - cell "Low" [ref=e192]:
+                - generic [ref=e193]: Low
+              - cell "5%" [ref=e194]
+              - cell "77.7" [ref=e195]:
+                - 'generic "Score: 77.7" [ref=e196]':
+                  - generic [ref=e198]: "77.7"
+              - cell "● good" [ref=e199]:
+                - generic "5/5 metrics confirmed" [ref=e200]: ● good
+              - cell "↗" [ref=e201]:
+                - link "↗" [ref=e202]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xd0b53d9277642d899df5c87a3966a349a798f224
+            - row "Uniswap V3 Ethereum WETH/USDT volatile 0.01% $8.47M 3y 138d 5.103 2.3% Low 5% 74.3 ● good ↗" [ref=e203] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e204]:
+                - generic [ref=e205]: Uniswap V3
+              - cell "Ethereum" [ref=e206]:
+                - generic [ref=e207]: Ethereum
+              - cell "WETH/USDT volatile" [ref=e208]:
+                - generic [ref=e209]:
+                  - strong [ref=e210]: WETH/USDT
+                  - generic [ref=e211]: volatile
+              - cell "0.01%" [ref=e212]
+              - cell "$8.47M" [ref=e213]
+              - cell "3y 138d" [ref=e214]
+              - cell "5.103" [ref=e215]
+              - cell "2.3%" [ref=e216]
+              - cell "Low" [ref=e217]:
+                - generic [ref=e218]: Low
+              - cell "5%" [ref=e219]
+              - cell "74.3" [ref=e220]:
+                - 'generic "Score: 74.3" [ref=e221]':
+                  - generic [ref=e223]: "74.3"
+              - cell "● good" [ref=e224]:
+                - generic "5/5 metrics confirmed" [ref=e225]: ● good
+              - cell "↗" [ref=e226]:
+                - link "↗" [ref=e227]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0xc7bbec68d12a0d1830360f8ec58fa599ba1b0e9b
+            - row "Uniswap V3 Ethereum WETH/USDT volatile 0.05% $11.37M 4y 135d 1.186 2.3% Low 5% 74.3 ● good ↗" [ref=e228] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e229]:
+                - generic [ref=e230]: Uniswap V3
+              - cell "Ethereum" [ref=e231]:
+                - generic [ref=e232]: Ethereum
+              - cell "WETH/USDT volatile" [ref=e233]:
+                - generic [ref=e234]:
+                  - strong [ref=e235]: WETH/USDT
+                  - generic [ref=e236]: volatile
+              - cell "0.05%" [ref=e237]
+              - cell "$11.37M" [ref=e238]
+              - cell "4y 135d" [ref=e239]
+              - cell "1.186" [ref=e240]
+              - cell "2.3%" [ref=e241]
+              - cell "Low" [ref=e242]:
+                - generic [ref=e243]: Low
+              - cell "5%" [ref=e244]
+              - cell "74.3" [ref=e245]:
+                - 'generic "Score: 74.3" [ref=e246]':
+                  - generic [ref=e248]: "74.3"
+              - cell "● good" [ref=e249]:
+                - generic "5/5 metrics confirmed" [ref=e250]: ● good
+              - cell "↗" [ref=e251]:
+                - link "↗" [ref=e252]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x11b815efb8f581194ae79006d24e0d814b7697f6
+            - row "Uniswap V3 Base WETH/USDC volatile 0.3% $132.48M 2y 176d 0.344 2.7% Low 5% 74.2 ● good ↗" [ref=e253] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e254]:
+                - generic [ref=e255]: Uniswap V3
+              - cell "Base" [ref=e256]:
+                - generic [ref=e257]: Base
+              - cell "WETH/USDC volatile" [ref=e258]:
+                - generic [ref=e259]:
+                  - strong [ref=e260]: WETH/USDC
+                  - generic [ref=e261]: volatile
+              - cell "0.3%" [ref=e262]
+              - cell "$132.48M" [ref=e263]
+              - cell "2y 176d" [ref=e264]
+              - cell "0.344" [ref=e265]
+              - cell "2.7%" [ref=e266]
+              - cell "Low" [ref=e267]:
+                - generic [ref=e268]: Low
+              - cell "5%" [ref=e269]
+              - cell "74.2" [ref=e270]:
+                - 'generic "Score: 74.2" [ref=e271]':
+                  - generic [ref=e273]: "74.2"
+              - cell "● good" [ref=e274]:
+                - generic "5/5 metrics confirmed" [ref=e275]: ● good
+              - cell "↗" [ref=e276]:
+                - link "↗" [ref=e277]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x6c561b446416e1a00e8e93e221854d6ea4171372
+            - row "Uniswap V3 Ethereum WBTC/USDT volatile 0.05% $17.25M 3y 356d 0.828 1.2% Low 5% 74.1 ● good ↗" [ref=e278] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e279]:
+                - generic [ref=e280]: Uniswap V3
+              - cell "Ethereum" [ref=e281]:
+                - generic [ref=e282]: Ethereum
+              - cell "WBTC/USDT volatile" [ref=e283]:
+                - generic [ref=e284]:
+                  - strong [ref=e285]: WBTC/USDT
+                  - generic [ref=e286]: volatile
+              - cell "0.05%" [ref=e287]
+              - cell "$17.25M" [ref=e288]
+              - cell "3y 356d" [ref=e289]
+              - cell "0.828" [ref=e290]
+              - cell "1.2%" [ref=e291]
+              - cell "Low" [ref=e292]:
+                - generic [ref=e293]: Low
+              - cell "5%" [ref=e294]
+              - cell "74.1" [ref=e295]:
+                - 'generic "Score: 74.1" [ref=e296]':
+                  - generic [ref=e298]: "74.1"
+              - cell "● good" [ref=e299]:
+                - generic "5/5 metrics confirmed" [ref=e300]: ● good
+              - cell "↗" [ref=e301]:
+                - link "↗" [ref=e302]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x56534741cd8b152df6d48adf7ac51f75169a83b2
+            - row "Uniswap V3 Ethereum XAUt/USDT volatile 0.05% $16.01M 4y 135d 0.442 0.1% Low 5% 73.9 ● good ↗" [ref=e303] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e304]:
+                - generic [ref=e305]: Uniswap V3
+              - cell "Ethereum" [ref=e306]:
+                - generic [ref=e307]: Ethereum
+              - cell "XAUt/USDT volatile" [ref=e308]:
+                - generic [ref=e309]:
+                  - strong [ref=e310]: XAUt/USDT
+                  - generic [ref=e311]: volatile
+              - cell "0.05%" [ref=e312]
+              - cell "$16.01M" [ref=e313]
+              - cell "4y 135d" [ref=e314]
+              - cell "0.442" [ref=e315]
+              - cell "0.1%" [ref=e316]
+              - cell "Low" [ref=e317]:
+                - generic [ref=e318]: Low
+              - cell "5%" [ref=e319]
+              - cell "73.9" [ref=e320]:
+                - 'generic "Score: 73.9" [ref=e321]':
+                  - generic [ref=e323]: "73.9"
+              - cell "● good" [ref=e324]:
+                - generic "5/5 metrics confirmed" [ref=e325]: ● good
+              - cell "↗" [ref=e326]:
+                - link "↗" [ref=e327]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x6546055f46e866a4b9a4a13e81273e3152bae5da
+            - row "Uniswap V3 Ethereum WETH/USDT volatile 0.3% $85.47M 4y 135d 0.175 2.3% Low 5% 73.5 ● good ↗" [ref=e328] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e329]:
+                - generic [ref=e330]: Uniswap V3
+              - cell "Ethereum" [ref=e331]:
+                - generic [ref=e332]: Ethereum
+              - cell "WETH/USDT volatile" [ref=e333]:
+                - generic [ref=e334]:
+                  - strong [ref=e335]: WETH/USDT
+                  - generic [ref=e336]: volatile
+              - cell "0.3%" [ref=e337]
+              - cell "$85.47M" [ref=e338]
+              - cell "4y 135d" [ref=e339]
+              - cell "0.175" [ref=e340]
+              - cell "2.3%" [ref=e341]
+              - cell "Low" [ref=e342]:
+                - generic [ref=e343]: Low
+              - cell "5%" [ref=e344]
+              - cell "73.5" [ref=e345]:
+                - 'generic "Score: 73.5" [ref=e346]':
+                  - generic [ref=e348]: "73.5"
+              - cell "● good" [ref=e349]:
+                - generic "5/5 metrics confirmed" [ref=e350]: ● good
+              - cell "↗" [ref=e351]:
+                - link "↗" [ref=e352]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x4e68ccd3e89f51c3074ca5072bbac773960dfa36
+            - row "Uniswap V3 Ethereum WETH/USDC volatile 0.05% $102.28M 4y 135d 0.432 2.3% Low 5% 73.3 ● good ↗" [ref=e353] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e354]:
+                - generic [ref=e355]: Uniswap V3
+              - cell "Ethereum" [ref=e356]:
+                - generic [ref=e357]: Ethereum
+              - cell "WETH/USDC volatile" [ref=e358]:
+                - generic [ref=e359]:
+                  - strong [ref=e360]: WETH/USDC
+                  - generic [ref=e361]: volatile
+              - cell "0.05%" [ref=e362]
+              - cell "$102.28M" [ref=e363]
+              - cell "4y 135d" [ref=e364]
+              - cell "0.432" [ref=e365]
+              - cell "2.3%" [ref=e366]
+              - cell "Low" [ref=e367]:
+                - generic [ref=e368]: Low
+              - cell "5%" [ref=e369]
+              - cell "73.3" [ref=e370]:
+                - 'generic "Score: 73.3" [ref=e371]':
+                  - generic [ref=e373]: "73.3"
+              - cell "● good" [ref=e374]:
+                - generic "5/5 metrics confirmed" [ref=e375]: ● good
+              - cell "↗" [ref=e376]:
+                - link "↗" [ref=e377]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640
+            - row "Uniswap V3 Ethereum wM/USDC volatile 0.01% $9.91M 1y 247d 1.463 0.1% Low 5% 73.2 ● good ↗" [ref=e378] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e379]:
+                - generic [ref=e380]: Uniswap V3
+              - cell "Ethereum" [ref=e381]:
+                - generic [ref=e382]: Ethereum
+              - cell "wM/USDC volatile" [ref=e383]:
+                - generic [ref=e384]:
+                  - strong [ref=e385]: wM/USDC
+                  - generic [ref=e386]: volatile
+              - cell "0.01%" [ref=e387]
+              - cell "$9.91M" [ref=e388]
+              - cell "1y 247d" [ref=e389]
+              - cell "1.463" [ref=e390]
+              - cell "0.1%" [ref=e391]
+              - cell "Low" [ref=e392]:
+                - generic [ref=e393]: Low
+              - cell "5%" [ref=e394]
+              - cell "73.2" [ref=e395]:
+                - 'generic "Score: 73.2" [ref=e396]':
+                  - generic [ref=e398]: "73.2"
+              - cell "● good" [ref=e399]:
+                - generic "5/5 metrics confirmed" [ref=e400]: ● good
+              - cell "↗" [ref=e401]:
+                - link "↗" [ref=e402]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x970a7749ecaa4394c8b2bf5f2471f41fd6b79288
+            - row "Uniswap V3 Ethereum USDC/USDT stable 0.01% $45.77M 4y 135d 0.300 0.4% Low 37% 71.8 ● good ↗" [ref=e403] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e404]:
+                - generic [ref=e405]: Uniswap V3
+              - cell "Ethereum" [ref=e406]:
+                - generic [ref=e407]: Ethereum
+              - cell "USDC/USDT stable" [ref=e408]:
+                - generic [ref=e409]:
+                  - strong [ref=e410]: USDC/USDT
+                  - generic [ref=e411]: stable
+              - cell "0.01%" [ref=e412]
+              - cell "$45.77M" [ref=e413]
+              - cell "4y 135d" [ref=e414]
+              - cell "0.300" [ref=e415]
+              - cell "0.4%" [ref=e416]
+              - cell "Low" [ref=e417]:
+                - generic [ref=e418]: Low
+              - cell "37%" [ref=e419]
+              - cell "71.8" [ref=e420]:
+                - 'generic "Score: 71.8" [ref=e421]':
+                  - generic [ref=e423]: "71.8"
+              - cell "● good" [ref=e424]:
+                - generic "5/5 metrics confirmed" [ref=e425]: ● good
+              - cell "↗" [ref=e426]:
+                - link "↗" [ref=e427]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x3416cf6c708da44db2624d63ea0aaef7113527c6
+            - row "Uniswap V3 Ethereum USDM/USDT volatile 0.05% $20.00M 2y 187d 0.404 0.5% Low 5% 71.2 ● good ↗" [ref=e428] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e429]:
+                - generic [ref=e430]: Uniswap V3
+              - cell "Ethereum" [ref=e431]:
+                - generic [ref=e432]: Ethereum
+              - cell "USDM/USDT volatile" [ref=e433]:
+                - generic [ref=e434]:
+                  - strong [ref=e435]: USDM/USDT
+                  - generic [ref=e436]: volatile
+              - cell "0.05%" [ref=e437]
+              - cell "$20.00M" [ref=e438]
+              - cell "2y 187d" [ref=e439]
+              - cell "0.404" [ref=e440]
+              - cell "0.5%" [ref=e441]
+              - cell "Low" [ref=e442]:
+                - generic [ref=e443]: Low
+              - cell "5%" [ref=e444]
+              - cell "71.2" [ref=e445]:
+                - 'generic "Score: 71.2" [ref=e446]':
+                  - generic [ref=e448]: "71.2"
+              - cell "● good" [ref=e449]:
+                - generic "5/5 metrics confirmed" [ref=e450]: ● good
+              - cell "↗" [ref=e451]:
+                - link "↗" [ref=e452]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x4a25dbdf9629b1782c3e2c7de3bdce41f1c7f801
+            - row "Uniswap V3 Ethereum WBTC/WETH volatile 0.05% $54.42M 4y 135d 0.251 1.2% Low 5% 70.9 ● good ↗" [ref=e453] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e454]:
+                - generic [ref=e455]: Uniswap V3
+              - cell "Ethereum" [ref=e456]:
+                - generic [ref=e457]: Ethereum
+              - cell "WBTC/WETH volatile" [ref=e458]:
+                - generic [ref=e459]:
+                  - strong [ref=e460]: WBTC/WETH
+                  - generic [ref=e461]: volatile
+              - cell "0.05%" [ref=e462]
+              - cell "$54.42M" [ref=e463]
+              - cell "4y 135d" [ref=e464]
+              - cell "0.251" [ref=e465]
+              - cell "1.2%" [ref=e466]
+              - cell "Low" [ref=e467]:
+                - generic [ref=e468]: Low
+              - cell "5%" [ref=e469]
+              - cell "70.9" [ref=e470]:
+                - 'generic "Score: 70.9" [ref=e471]':
+                  - generic [ref=e473]: "70.9"
+              - cell "● good" [ref=e474]:
+                - generic "5/5 metrics confirmed" [ref=e475]: ● good
+              - cell "↗" [ref=e476]:
+                - link "↗" [ref=e477]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x4585fe77225b41b697c938b018e2ac67ac5a20c0
+            - row "Uniswap V3 Ethereum DAI/USDT stable 0.01% $1.77M 3y 303d 4.659 0.6% Low 58% 69.1 ● good ↗" [ref=e478] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e479]:
+                - generic [ref=e480]: Uniswap V3
+              - cell "Ethereum" [ref=e481]:
+                - generic [ref=e482]: Ethereum
+              - cell "DAI/USDT stable" [ref=e483]:
+                - generic [ref=e484]:
+                  - strong [ref=e485]: DAI/USDT
+                  - generic [ref=e486]: stable
+              - cell "0.01%" [ref=e487]
+              - cell "$1.77M" [ref=e488]
+              - cell "3y 303d" [ref=e489]
+              - cell "4.659" [ref=e490]
+              - cell "0.6%" [ref=e491]
+              - cell "Low" [ref=e492]:
+                - generic [ref=e493]: Low
+              - cell "58%" [ref=e494]
+              - cell "69.1" [ref=e495]:
+                - 'generic "Score: 69.1" [ref=e496]':
+                  - generic [ref=e498]: "69.1"
+              - cell "● good" [ref=e499]:
+                - generic "5/5 metrics confirmed" [ref=e500]: ● good
+              - cell "↗" [ref=e501]:
+                - link "↗" [ref=e502]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x48da0965ab2d2cbf1c17c09cfb5cbe67ad5b1406
+            - row "Uniswap V3 Ethereum AUSD/USDC volatile 0.01% $25.09M 1y 273d 0.286 0.2% Low 5% 68.8 ● good ↗" [ref=e503] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e504]:
+                - generic [ref=e505]: Uniswap V3
+              - cell "Ethereum" [ref=e506]:
+                - generic [ref=e507]: Ethereum
+              - cell "AUSD/USDC volatile" [ref=e508]:
+                - generic [ref=e509]:
+                  - strong [ref=e510]: AUSD/USDC
+                  - generic [ref=e511]: volatile
+              - cell "0.01%" [ref=e512]
+              - cell "$25.09M" [ref=e513]
+              - cell "1y 273d" [ref=e514]
+              - cell "0.286" [ref=e515]
+              - cell "0.2%" [ref=e516]
+              - cell "Low" [ref=e517]:
+                - generic [ref=e518]: Low
+              - cell "5%" [ref=e519]
+              - cell "68.8" [ref=e520]:
+                - 'generic "Score: 68.8" [ref=e521]':
+                  - generic [ref=e523]: "68.8"
+              - cell "● good" [ref=e524]:
+                - generic "5/5 metrics confirmed" [ref=e525]: ● good
+              - cell "↗" [ref=e526]:
+                - link "↗" [ref=e527]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0xbafead7c60ea473758ed6c6021505e8bbd7e8e5d
+            - row "Uniswap V3 Base cbBTC/USDC volatile 0.05% $8.62M 1y 240d 1.005 1.5% Low 5% 68.8 ● good ↗" [ref=e528] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e529]:
+                - generic [ref=e530]: Uniswap V3
+              - cell "Base" [ref=e531]:
+                - generic [ref=e532]: Base
+              - cell "cbBTC/USDC volatile" [ref=e533]:
+                - generic [ref=e534]:
+                  - strong [ref=e535]: cbBTC/USDC
+                  - generic [ref=e536]: volatile
+              - cell "0.05%" [ref=e537]
+              - cell "$8.62M" [ref=e538]
+              - cell "1y 240d" [ref=e539]
+              - cell "1.005" [ref=e540]
+              - cell "1.5%" [ref=e541]
+              - cell "Low" [ref=e542]:
+                - generic [ref=e543]: Low
+              - cell "5%" [ref=e544]
+              - cell "68.8" [ref=e545]:
+                - 'generic "Score: 68.8" [ref=e546]':
+                  - generic [ref=e548]: "68.8"
+              - cell "● good" [ref=e549]:
+                - generic "5/5 metrics confirmed" [ref=e550]: ● good
+              - cell "↗" [ref=e551]:
+                - link "↗" [ref=e552]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xfbb6eed8e7aa03b138556eedaf5d271a5e1e43ef
+            - row "Uniswap V3 Ethereum cbBTC/WBTC correlated 0.01% $31.27M 1y 243d 0.308 1.2% Low 6% 67.9 ● good ↗" [ref=e553] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e554]:
+                - generic [ref=e555]: Uniswap V3
+              - cell "Ethereum" [ref=e556]:
+                - generic [ref=e557]: Ethereum
+              - cell "cbBTC/WBTC correlated" [ref=e558]:
+                - generic [ref=e559]:
+                  - strong [ref=e560]: cbBTC/WBTC
+                  - generic [ref=e561]: correlated
+              - cell "0.01%" [ref=e562]
+              - cell "$31.27M" [ref=e563]
+              - cell "1y 243d" [ref=e564]
+              - cell "0.308" [ref=e565]
+              - cell "1.2%" [ref=e566]
+              - cell "Low" [ref=e567]:
+                - generic [ref=e568]: Low
+              - cell "6%" [ref=e569]
+              - cell "67.9" [ref=e570]:
+                - 'generic "Score: 67.9" [ref=e571]':
+                  - generic [ref=e573]: "67.9"
+              - cell "● good" [ref=e574]:
+                - generic "5/5 metrics confirmed" [ref=e575]: ● good
+              - cell "↗" [ref=e576]:
+                - link "↗" [ref=e577]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0xe8f7c89c5efa061e340f2d2f206ec78fd8f7e124
+            - row "Uniswap V3 Ethereum USDe/USDC stable 0.01% $2.10M 2y 171d 2.035 0.2% Low 18% 66.0 ● good ↗" [ref=e578] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e579]:
+                - generic [ref=e580]: Uniswap V3
+              - cell "Ethereum" [ref=e581]:
+                - generic [ref=e582]: Ethereum
+              - cell "USDe/USDC stable" [ref=e583]:
+                - generic [ref=e584]:
+                  - strong [ref=e585]: USDe/USDC
+                  - generic [ref=e586]: stable
+              - cell "0.01%" [ref=e587]
+              - cell "$2.10M" [ref=e588]
+              - cell "2y 171d" [ref=e589]
+              - cell "2.035" [ref=e590]
+              - cell "0.2%" [ref=e591]
+              - cell "Low" [ref=e592]:
+                - generic [ref=e593]: Low
+              - cell "18%" [ref=e594]
+              - cell "66.0" [ref=e595]:
+                - 'generic "Score: 66" [ref=e596]':
+                  - generic [ref=e598]: "66.0"
+              - cell "● good" [ref=e599]:
+                - generic "5/5 metrics confirmed" [ref=e600]: ● good
+              - cell "↗" [ref=e601]:
+                - link "↗" [ref=e602]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0xe6d7ebb9f1a9519dc06d557e03c522d53520e76a
+            - row "Uniswap V3 Ethereum PAXG/XAUt volatile 0.01% $9.33M 202d 0.443 0.4% Low 5% 65.8 ● good ↗" [ref=e603] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e604]:
+                - generic [ref=e605]: Uniswap V3
+              - cell "Ethereum" [ref=e606]:
+                - generic [ref=e607]: Ethereum
+              - cell "PAXG/XAUt volatile" [ref=e608]:
+                - generic [ref=e609]:
+                  - strong [ref=e610]: PAXG/XAUt
+                  - generic [ref=e611]: volatile
+              - cell "0.01%" [ref=e612]
+              - cell "$9.33M" [ref=e613]
+              - cell "202d" [ref=e614]
+              - cell "0.443" [ref=e615]
+              - cell "0.4%" [ref=e616]
+              - cell "Low" [ref=e617]:
+                - generic [ref=e618]: Low
+              - cell "5%" [ref=e619]
+              - cell "65.8" [ref=e620]:
+                - 'generic "Score: 65.8" [ref=e621]':
+                  - generic [ref=e623]: "65.8"
+              - cell "● good" [ref=e624]:
+                - generic "5/5 metrics confirmed" [ref=e625]: ● good
+              - cell "↗" [ref=e626]:
+                - link "↗" [ref=e627]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0xc756bba710d45647715079ce50aa16aab36ded42
+            - row "Uniswap V3 Base cbBTC/WETH volatile 0.3% $10.07M 1y 243d 0.121 1.6% Low 5% 64.5 ● good ↗" [ref=e628] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e629]:
+                - generic [ref=e630]: Uniswap V3
+              - cell "Base" [ref=e631]:
+                - generic [ref=e632]: Base
+              - cell "cbBTC/WETH volatile" [ref=e633]:
+                - generic [ref=e634]:
+                  - strong [ref=e635]: cbBTC/WETH
+                  - generic [ref=e636]: volatile
+              - cell "0.3%" [ref=e637]
+              - cell "$10.07M" [ref=e638]
+              - cell "1y 243d" [ref=e639]
+              - cell "0.121" [ref=e640]
+              - cell "1.6%" [ref=e641]
+              - cell "Low" [ref=e642]:
+                - generic [ref=e643]: Low
+              - cell "5%" [ref=e644]
+              - cell "64.5" [ref=e645]:
+                - 'generic "Score: 64.5" [ref=e646]':
+                  - generic [ref=e648]: "64.5"
+              - cell "● good" [ref=e649]:
+                - generic "5/5 metrics confirmed" [ref=e650]: ● good
+              - cell "↗" [ref=e651]:
+                - link "↗" [ref=e652]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x8c7080564b5a792a33ef2fd473fba6364d5495e5
+            - row "Uniswap V3 Base VCNT/USDC volatile 0.3% $216.6K 1y 320d 3.094 0.6% Low 5% 64.5 ● good ↗" [ref=e653] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e654]:
+                - generic [ref=e655]: Uniswap V3
+              - cell "Base" [ref=e656]:
+                - generic [ref=e657]: Base
+              - cell "VCNT/USDC volatile" [ref=e658]:
+                - generic [ref=e659]:
+                  - strong [ref=e660]: VCNT/USDC
+                  - generic [ref=e661]: volatile
+              - cell "0.3%" [ref=e662]
+              - cell "$216.6K" [ref=e663]
+              - cell "1y 320d" [ref=e664]
+              - cell "3.094" [ref=e665]
+              - cell "0.6%" [ref=e666]
+              - cell "Low" [ref=e667]:
+                - generic [ref=e668]: Low
+              - cell "5%" [ref=e669]
+              - cell "64.5" [ref=e670]:
+                - 'generic "Score: 64.5" [ref=e671]':
+                  - generic [ref=e673]: "64.5"
+              - cell "● good" [ref=e674]:
+                - generic "5/5 metrics confirmed" [ref=e675]: ● good
+              - cell "↗" [ref=e676]:
+                - link "↗" [ref=e677]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xe8f16fbf4eafec04bcf0c06d768e7ba325f9d6de
+            - row "Uniswap V3 Ethereum ASTEROID/WETH volatile 1% $3.98M 1y 244d 0.882 11.0% Medium 12% 63.9 ● good ↗" [ref=e678] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e679]:
+                - generic [ref=e680]: Uniswap V3
+              - cell "Ethereum" [ref=e681]:
+                - generic [ref=e682]: Ethereum
+              - cell "ASTEROID/WETH volatile" [ref=e683]:
+                - generic [ref=e684]:
+                  - strong [ref=e685]: ASTEROID/WETH
+                  - generic [ref=e686]: volatile
+              - cell "1%" [ref=e687]
+              - cell "$3.98M" [ref=e688]
+              - cell "1y 244d" [ref=e689]
+              - cell "0.882" [ref=e690]
+              - cell "11.0%" [ref=e691]
+              - cell "Medium" [ref=e692]:
+                - generic [ref=e693]: Medium
+              - cell "12%" [ref=e694]
+              - cell "63.9" [ref=e695]:
+                - 'generic "Score: 63.9" [ref=e696]':
+                  - generic [ref=e698]: "63.9"
+              - cell "● good" [ref=e699]:
+                - generic "5/5 metrics confirmed" [ref=e700]: ● good
+              - cell "↗" [ref=e701]:
+                - link "↗" [ref=e702]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x53e3d506f468c4bc30cc8caa21eb7e56c2fa2d55
+            - row "Uniswap V3 Ethereum tBTC/WBTC correlated 0.01% $3.59M 2y 9d 1.303 1.4% Low 7% 63.8 ● good ↗" [ref=e703] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e704]:
+                - generic [ref=e705]: Uniswap V3
+              - cell "Ethereum" [ref=e706]:
+                - generic [ref=e707]: Ethereum
+              - cell "tBTC/WBTC correlated" [ref=e708]:
+                - generic [ref=e709]:
+                  - strong [ref=e710]: tBTC/WBTC
+                  - generic [ref=e711]: correlated
+              - cell "0.01%" [ref=e712]
+              - cell "$3.59M" [ref=e713]
+              - cell "2y 9d" [ref=e714]
+              - cell "1.303" [ref=e715]
+              - cell "1.4%" [ref=e716]
+              - cell "Low" [ref=e717]:
+                - generic [ref=e718]: Low
+              - cell "7%" [ref=e719]
+              - cell "63.8" [ref=e720]:
+                - 'generic "Score: 63.8" [ref=e721]':
+                  - generic [ref=e723]: "63.8"
+              - cell "● good" [ref=e724]:
+                - generic "5/5 metrics confirmed" [ref=e725]: ● good
+              - cell "↗" [ref=e726]:
+                - link "↗" [ref=e727]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x73a38006d23517a1d383c88929b2014f8835b38b
+            - row "Uniswap V3 Base WETH/USDC volatile 0.01% $452.8K 2y 239d 5.155 2.6% Low 5% 63.2 ● good ↗" [ref=e728] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e729]:
+                - generic [ref=e730]: Uniswap V3
+              - cell "Base" [ref=e731]:
+                - generic [ref=e732]: Base
+              - cell "WETH/USDC volatile" [ref=e733]:
+                - generic [ref=e734]:
+                  - strong [ref=e735]: WETH/USDC
+                  - generic [ref=e736]: volatile
+              - cell "0.01%" [ref=e737]
+              - cell "$452.8K" [ref=e738]
+              - cell "2y 239d" [ref=e739]
+              - cell "5.155" [ref=e740]
+              - cell "2.6%" [ref=e741]
+              - cell "Low" [ref=e742]:
+                - generic [ref=e743]: Low
+              - cell "5%" [ref=e744]
+              - cell "63.2" [ref=e745]:
+                - 'generic "Score: 63.2" [ref=e746]':
+                  - generic [ref=e748]: "63.2"
+              - cell "● good" [ref=e749]:
+                - generic "5/5 metrics confirmed" [ref=e750]: ● good
+              - cell "↗" [ref=e751]:
+                - link "↗" [ref=e752]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xb4cb800910b228ed3d0834cf79d697127bbb00e5
+            - row "Uniswap V3 Ethereum LBTC/WBTC volatile 0.01% $809.5K 1y 122d 3.128 0.3% Low 5% 62.5 ● good ↗" [ref=e753] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e754]:
+                - generic [ref=e755]: Uniswap V3
+              - cell "Ethereum" [ref=e756]:
+                - generic [ref=e757]: Ethereum
+              - cell "LBTC/WBTC volatile" [ref=e758]:
+                - generic [ref=e759]:
+                  - strong [ref=e760]: LBTC/WBTC
+                  - generic [ref=e761]: volatile
+              - cell "0.01%" [ref=e762]
+              - cell "$809.5K" [ref=e763]
+              - cell "1y 122d" [ref=e764]
+              - cell "3.128" [ref=e765]
+              - cell "0.3%" [ref=e766]
+              - cell "Low" [ref=e767]:
+                - generic [ref=e768]: Low
+              - cell "5%" [ref=e769]
+              - cell "62.5" [ref=e770]:
+                - 'generic "Score: 62.5" [ref=e771]':
+                  - generic [ref=e773]: "62.5"
+              - cell "● good" [ref=e774]:
+                - generic "5/5 metrics confirmed" [ref=e775]: ● good
+              - cell "↗" [ref=e776]:
+                - link "↗" [ref=e777]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x0b599ebf4e05af48b56d38e2dde520570c366460
+            - row "Uniswap V3 Base cbBTC/WETH volatile 0.05% $3.40M 1y 241d 0.552 1.4% Low 5% 61.6 ● good ↗" [ref=e778] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e779]:
+                - generic [ref=e780]: Uniswap V3
+              - cell "Base" [ref=e781]:
+                - generic [ref=e782]: Base
+              - cell "cbBTC/WETH volatile" [ref=e783]:
+                - generic [ref=e784]:
+                  - strong [ref=e785]: cbBTC/WETH
+                  - generic [ref=e786]: volatile
+              - cell "0.05%" [ref=e787]
+              - cell "$3.40M" [ref=e788]
+              - cell "1y 241d" [ref=e789]
+              - cell "0.552" [ref=e790]
+              - cell "1.4%" [ref=e791]
+              - cell "Low" [ref=e792]:
+                - generic [ref=e793]: Low
+              - cell "5%" [ref=e794]
+              - cell "61.6" [ref=e795]:
+                - 'generic "Score: 61.6" [ref=e796]':
+                  - generic [ref=e798]: "61.6"
+              - cell "● good" [ref=e799]:
+                - generic "5/5 metrics confirmed" [ref=e800]: ● good
+              - cell "↗" [ref=e801]:
+                - link "↗" [ref=e802]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x7aea2e8a3843516afa07293a10ac8e49906dabd1
+            - row "Uniswap V3 Ethereum ASTEROID/USDC volatile 0.3% $958.3K 23d 3.428 9.5% Medium 13% 61.5 ● good ↗" [ref=e803] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e804]:
+                - generic [ref=e805]: Uniswap V3
+              - cell "Ethereum" [ref=e806]:
+                - generic [ref=e807]: Ethereum
+              - cell "ASTEROID/USDC volatile" [ref=e808]:
+                - generic [ref=e809]:
+                  - strong [ref=e810]: ASTEROID/USDC
+                  - generic [ref=e811]: volatile
+              - cell "0.3%" [ref=e812]
+              - cell "$958.3K" [ref=e813]
+              - cell "23d" [ref=e814]
+              - cell "3.428" [ref=e815]
+              - cell "9.5%" [ref=e816]
+              - cell "Medium" [ref=e817]:
+                - generic [ref=e818]: Medium
+              - cell "13%" [ref=e819]
+              - cell "61.5" [ref=e820]:
+                - 'generic "Score: 61.5" [ref=e821]':
+                  - generic [ref=e823]: "61.5"
+              - cell "● good" [ref=e824]:
+                - generic "5/5 metrics confirmed" [ref=e825]: ● good
+              - cell "↗" [ref=e826]:
+                - link "↗" [ref=e827]:
+                  - /url: https://www.geckoterminal.com/eth/pools/0x168e9b3c9ddfb013a4130276f9c500a3ce50fde7
+            - row "Uniswap V3 Base VIRTUAL/WETH volatile 0.05% $616.1K 1y 195d 2.626 5.7% Low 8% 59.8 ● good ↗" [ref=e828] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e829]:
+                - generic [ref=e830]: Uniswap V3
+              - cell "Base" [ref=e831]:
+                - generic [ref=e832]: Base
+              - cell "VIRTUAL/WETH volatile" [ref=e833]:
+                - generic [ref=e834]:
+                  - strong [ref=e835]: VIRTUAL/WETH
+                  - generic [ref=e836]: volatile
+              - cell "0.05%" [ref=e837]
+              - cell "$616.1K" [ref=e838]
+              - cell "1y 195d" [ref=e839]
+              - cell "2.626" [ref=e840]
+              - cell "5.7%" [ref=e841]
+              - cell "Low" [ref=e842]:
+                - generic [ref=e843]: Low
+              - cell "8%" [ref=e844]
+              - cell "59.8" [ref=e845]:
+                - 'generic "Score: 59.8" [ref=e846]':
+                  - generic [ref=e848]: "59.8"
+              - cell "● good" [ref=e849]:
+                - generic "5/5 metrics confirmed" [ref=e850]: ● good
+              - cell "↗" [ref=e851]:
+                - link "↗" [ref=e852]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x9c087eb773291e50cf6c6a90ef0f4500e349b903
+            - row "Uniswap V3 Base VIRTUAL/USDC volatile 0.3% $943.6K 2y 29d 0.515 4.6% Low 8% 59.5 ● good ↗" [ref=e853] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e854]:
+                - generic [ref=e855]: Uniswap V3
+              - cell "Base" [ref=e856]:
+                - generic [ref=e857]: Base
+              - cell "VIRTUAL/USDC volatile" [ref=e858]:
+                - generic [ref=e859]:
+                  - strong [ref=e860]: VIRTUAL/USDC
+                  - generic [ref=e861]: volatile
+              - cell "0.3%" [ref=e862]
+              - cell "$943.6K" [ref=e863]
+              - cell "2y 29d" [ref=e864]
+              - cell "0.515" [ref=e865]
+              - cell "4.6%" [ref=e866]
+              - cell "Low" [ref=e867]:
+                - generic [ref=e868]: Low
+              - cell "8%" [ref=e869]
+              - cell "59.5" [ref=e870]:
+                - 'generic "Score: 59.5" [ref=e871]':
+                  - generic [ref=e873]: "59.5"
+              - cell "● good" [ref=e874]:
+                - generic "5/5 metrics confirmed" [ref=e875]: ● good
+              - cell "↗" [ref=e876]:
+                - link "↗" [ref=e877]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x529d2863a1521d0b57db028168fde2e97120017c
+            - row "Uniswap V3 Base cbBTC/USDC volatile 0.3% $3.29M 1y 243d 0.120 1.0% Low 5% 58.6 ● good ↗" [ref=e878] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e879]:
+                - generic [ref=e880]: Uniswap V3
+              - cell "Base" [ref=e881]:
+                - generic [ref=e882]: Base
+              - cell "cbBTC/USDC volatile" [ref=e883]:
+                - generic [ref=e884]:
+                  - strong [ref=e885]: cbBTC/USDC
+                  - generic [ref=e886]: volatile
+              - cell "0.3%" [ref=e887]
+              - cell "$3.29M" [ref=e888]
+              - cell "1y 243d" [ref=e889]
+              - cell "0.120" [ref=e890]
+              - cell "1.0%" [ref=e891]
+              - cell "Low" [ref=e892]:
+                - generic [ref=e893]: Low
+              - cell "5%" [ref=e894]
+              - cell "58.6" [ref=e895]:
+                - 'generic "Score: 58.6" [ref=e896]':
+                  - generic [ref=e898]: "58.6"
+              - cell "● good" [ref=e899]:
+                - generic "5/5 metrics confirmed" [ref=e900]: ● good
+              - cell "↗" [ref=e901]:
+                - link "↗" [ref=e902]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xec558e484cc9f2210714e345298fdc53b253c27d
+            - row "Uniswap V3 Base LFI/WETH volatile 1% $243.2K 11d 4.295 15.0% High 17% 58.3 ● good ↗" [ref=e903] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e904]:
+                - generic [ref=e905]: Uniswap V3
+              - cell "Base" [ref=e906]:
+                - generic [ref=e907]: Base
+              - cell "LFI/WETH volatile" [ref=e908]:
+                - generic [ref=e909]:
+                  - strong [ref=e910]: LFI/WETH
+                  - generic [ref=e911]: volatile
+              - cell "1%" [ref=e912]
+              - cell "$243.2K" [ref=e913]
+              - cell "11d" [ref=e914]
+              - cell "4.295" [ref=e915]
+              - cell "15.0%" [ref=e916]
+              - cell "High" [ref=e917]:
+                - generic [ref=e918]: High
+              - cell "17%" [ref=e919]
+              - cell "58.3" [ref=e920]:
+                - 'generic "Score: 58.3" [ref=e921]':
+                  - generic [ref=e923]: "58.3"
+              - cell "● good" [ref=e924]:
+                - generic "5/5 metrics confirmed" [ref=e925]: ● good
+              - cell "↗" [ref=e926]:
+                - link "↗" [ref=e927]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x588f68b9fa04366f33f8ce095c13f0cebab9406a
+            - row "Uniswap V3 Base SOSO/USDC volatile 0.01% $312.7K 169d 4.366 3.2% Low 5% 58.0 ● good ↗" [ref=e928] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e929]:
+                - generic [ref=e930]: Uniswap V3
+              - cell "Base" [ref=e931]:
+                - generic [ref=e932]: Base
+              - cell "SOSO/USDC volatile" [ref=e933]:
+                - generic [ref=e934]:
+                  - strong [ref=e935]: SOSO/USDC
+                  - generic [ref=e936]: volatile
+              - cell "0.01%" [ref=e937]
+              - cell "$312.7K" [ref=e938]
+              - cell "169d" [ref=e939]
+              - cell "4.366" [ref=e940]
+              - cell "3.2%" [ref=e941]
+              - cell "Low" [ref=e942]:
+                - generic [ref=e943]: Low
+              - cell "5%" [ref=e944]
+              - cell "58.0" [ref=e945]:
+                - 'generic "Score: 58" [ref=e946]':
+                  - generic [ref=e948]: "58.0"
+              - cell "● good" [ref=e949]:
+                - generic "5/5 metrics confirmed" [ref=e950]: ● good
+              - cell "↗" [ref=e951]:
+                - link "↗" [ref=e952]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x29183f918920a2aef0115a9c7374945589968aea
+            - row "Uniswap V3 Base AERO/USDC volatile 0.05% $176.3K 2y 48d 2.105 6.7% Medium 9% 57.7 ● good ↗" [ref=e953] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e954]:
+                - generic [ref=e955]: Uniswap V3
+              - cell "Base" [ref=e956]:
+                - generic [ref=e957]: Base
+              - cell "AERO/USDC volatile" [ref=e958]:
+                - generic [ref=e959]:
+                  - strong [ref=e960]: AERO/USDC
+                  - generic [ref=e961]: volatile
+              - cell "0.05%" [ref=e962]
+              - cell "$176.3K" [ref=e963]
+              - cell "2y 48d" [ref=e964]
+              - cell "2.105" [ref=e965]
+              - cell "6.7%" [ref=e966]
+              - cell "Medium" [ref=e967]:
+                - generic [ref=e968]: Medium
+              - cell "9%" [ref=e969]
+              - cell "57.7" [ref=e970]:
+                - 'generic "Score: 57.7" [ref=e971]':
+                  - generic [ref=e973]: "57.7"
+              - cell "● good" [ref=e974]:
+                - generic "5/5 metrics confirmed" [ref=e975]: ● good
+              - cell "↗" [ref=e976]:
+                - link "↗" [ref=e977]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xe5b5f522e98b5a2baae212d4da66b865b781db97
+            - row "Uniswap V3 Base MAG7.ssi/USDC volatile 0.3% $5.00M 1y 144d 0.079 2.5% Low 5% 56.8 ● good ↗" [ref=e978] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e979]:
+                - generic [ref=e980]: Uniswap V3
+              - cell "Base" [ref=e981]:
+                - generic [ref=e982]: Base
+              - cell "MAG7.ssi/USDC volatile" [ref=e983]:
+                - generic [ref=e984]:
+                  - strong [ref=e985]: MAG7.ssi/USDC
+                  - generic [ref=e986]: volatile
+              - cell "0.3%" [ref=e987]
+              - cell "$5.00M" [ref=e988]
+              - cell "1y 144d" [ref=e989]
+              - cell "0.079" [ref=e990]
+              - cell "2.5%" [ref=e991]
+              - cell "Low" [ref=e992]:
+                - generic [ref=e993]: Low
+              - cell "5%" [ref=e994]
+              - cell "56.8" [ref=e995]:
+                - 'generic "Score: 56.8" [ref=e996]':
+                  - generic [ref=e998]: "56.8"
+              - cell "● good" [ref=e999]:
+                - generic "5/5 metrics confirmed" [ref=e1000]: ● good
+              - cell "↗" [ref=e1001]:
+                - link "↗" [ref=e1002]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xd364eb55e17700b54bd75feb3f14582ed7a29444
+            - row "Uniswap V3 Base BNKR/WETH volatile 1% $2.44M 1y 160d 0.385 36.8% Medium 41% 56.7 ● good ↗" [ref=e1003] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e1004]:
+                - generic [ref=e1005]: Uniswap V3
+              - cell "Base" [ref=e1006]:
+                - generic [ref=e1007]: Base
+              - cell "BNKR/WETH volatile" [ref=e1008]:
+                - generic [ref=e1009]:
+                  - strong [ref=e1010]: BNKR/WETH
+                  - generic [ref=e1011]: volatile
+              - cell "1%" [ref=e1012]
+              - cell "$2.44M" [ref=e1013]
+              - cell "1y 160d" [ref=e1014]
+              - cell "0.385" [ref=e1015]
+              - cell "36.8%" [ref=e1016]
+              - cell "Medium" [ref=e1017]:
+                - generic [ref=e1018]: Medium
+              - cell "41%" [ref=e1019]
+              - cell "56.7" [ref=e1020]:
+                - 'generic "Score: 56.7" [ref=e1021]':
+                  - generic [ref=e1023]: "56.7"
+              - cell "● good" [ref=e1024]:
+                - generic "5/5 metrics confirmed" [ref=e1025]: ● good
+              - cell "↗" [ref=e1026]:
+                - link "↗" [ref=e1027]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xaec085e5a5ce8d96a7bdd3eb3a62445d4f6ce703
+            - row "Uniswap V3 Base STUBBS/WETH volatile 0.01% $29.5K 1d 17.658 18.8% Very High 21% 55.7 ● good ↗" [ref=e1028] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e1029]:
+                - generic [ref=e1030]: Uniswap V3
+              - cell "Base" [ref=e1031]:
+                - generic [ref=e1032]: Base
+              - cell "STUBBS/WETH volatile" [ref=e1033]:
+                - generic [ref=e1034]:
+                  - strong [ref=e1035]: STUBBS/WETH
+                  - generic [ref=e1036]: volatile
+              - cell "0.01%" [ref=e1037]
+              - cell "$29.5K" [ref=e1038]
+              - cell "1d" [ref=e1039]
+              - cell "17.658" [ref=e1040]
+              - cell "18.8%" [ref=e1041]
+              - cell "Very High" [ref=e1042]:
+                - generic [ref=e1043]: Very High
+              - cell "21%" [ref=e1044]
+              - cell "55.7" [ref=e1045]:
+                - 'generic "Score: 55.7" [ref=e1046]':
+                  - generic [ref=e1048]: "55.7"
+              - cell "● good" [ref=e1049]:
+                - generic "5/5 metrics confirmed" [ref=e1050]: ● good
+              - cell "↗" [ref=e1051]:
+                - link "↗" [ref=e1052]:
+                  - /url: https://www.geckoterminal.com/base/pools/0x0a423a23c97ce0e4296d13c2b846f8b8b66085d6
+            - row "Uniswap V3 Base deSPXA/USDC volatile 0.05% $1.61M 8d 0.202 0.2% Low 5% 55.4 ● good ↗" [ref=e1053] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e1054]:
+                - generic [ref=e1055]: Uniswap V3
+              - cell "Base" [ref=e1056]:
+                - generic [ref=e1057]: Base
+              - cell "deSPXA/USDC volatile" [ref=e1058]:
+                - generic [ref=e1059]:
+                  - strong [ref=e1060]: deSPXA/USDC
+                  - generic [ref=e1061]: volatile
+              - cell "0.05%" [ref=e1062]
+              - cell "$1.61M" [ref=e1063]
+              - cell "8d" [ref=e1064]
+              - cell "0.202" [ref=e1065]
+              - cell "0.2%" [ref=e1066]
+              - cell "Low" [ref=e1067]:
+                - generic [ref=e1068]: Low
+              - cell "5%" [ref=e1069]
+              - cell "55.4" [ref=e1070]:
+                - 'generic "Score: 55.4" [ref=e1071]':
+                  - generic [ref=e1073]: "55.4"
+              - cell "● good" [ref=e1074]:
+                - generic "5/5 metrics confirmed" [ref=e1075]: ● good
+              - cell "↗" [ref=e1076]:
+                - link "↗" [ref=e1077]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xd08f1fb797bfacded23323178672557034c64cfa
+            - row "Uniswap V3 Base LAND/WETH volatile 1% $99.6K 7d 3.689 60.6% High 67% 54.4 ● good ↗" [ref=e1078] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e1079]:
+                - generic [ref=e1080]: Uniswap V3
+              - cell "Base" [ref=e1081]:
+                - generic [ref=e1082]: Base
+              - cell "LAND/WETH volatile" [ref=e1083]:
+                - generic [ref=e1084]:
+                  - strong [ref=e1085]: LAND/WETH
+                  - generic [ref=e1086]: volatile
+              - cell "1%" [ref=e1087]
+              - cell "$99.6K" [ref=e1088]
+              - cell "7d" [ref=e1089]
+              - cell "3.689" [ref=e1090]
+              - cell "60.6%" [ref=e1091]
+              - cell "High" [ref=e1092]:
+                - generic [ref=e1093]: High
+              - cell "67%" [ref=e1094]
+              - cell "54.4" [ref=e1095]:
+                - 'generic "Score: 54.4" [ref=e1096]':
+                  - generic [ref=e1098]: "54.4"
+              - cell "● good" [ref=e1099]:
+                - generic "5/5 metrics confirmed" [ref=e1100]: ● good
+              - cell "↗" [ref=e1101]:
+                - link "↗" [ref=e1102]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xf630370cbfeb1d04c5c7b564143010e8d30b4e10
+            - row "Uniswap V3 Base BERRYBOY/WETH volatile 0.01% $49.9K 0d 10.794 1200.7% Very High 95% 54.1 ● good ↗" [ref=e1103] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e1104]:
+                - generic [ref=e1105]: Uniswap V3
+              - cell "Base" [ref=e1106]:
+                - generic [ref=e1107]: Base
+              - cell "BERRYBOY/WETH volatile" [ref=e1108]:
+                - generic [ref=e1109]:
+                  - strong [ref=e1110]: BERRYBOY/WETH
+                  - generic [ref=e1111]: volatile
+              - cell "0.01%" [ref=e1112]
+              - cell "$49.9K" [ref=e1113]
+              - cell "0d" [ref=e1114]
+              - cell "10.794" [ref=e1115]
+              - cell "1200.7%" [ref=e1116]
+              - cell "Very High" [ref=e1117]:
+                - generic [ref=e1118]: Very High
+              - cell "95%" [ref=e1119]
+              - cell "54.1" [ref=e1120]:
+                - 'generic "Score: 54.1" [ref=e1121]':
+                  - generic [ref=e1123]: "54.1"
+              - cell "● good" [ref=e1124]:
+                - generic "5/5 metrics confirmed" [ref=e1125]: ● good
+              - cell "↗" [ref=e1126]:
+                - link "↗" [ref=e1127]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xa68c78d969e51ac10d488c6d1da97541151f599c
+            - row "Uniswap V3 Base BIMPSON/WETH volatile 0.01% $20.2K 1d 14.942 47.2% Very High 52% 53.5 ● good ↗" [ref=e1128] [cursor=pointer]:
+              - cell "Uniswap V3" [ref=e1129]:
+                - generic [ref=e1130]: Uniswap V3
+              - cell "Base" [ref=e1131]:
+                - generic [ref=e1132]: Base
+              - cell "BIMPSON/WETH volatile" [ref=e1133]:
+                - generic [ref=e1134]:
+                  - strong [ref=e1135]: BIMPSON/WETH
+                  - generic [ref=e1136]: volatile
+              - cell "0.01%" [ref=e1137]
+              - cell "$20.2K" [ref=e1138]
+              - cell "1d" [ref=e1139]
+              - cell "14.942" [ref=e1140]
+              - cell "47.2%" [ref=e1141]
+              - cell "Very High" [ref=e1142]:
+                - generic [ref=e1143]: Very High
+              - cell "52%" [ref=e1144]
+              - cell "53.5" [ref=e1145]:
+                - 'generic "Score: 53.5" [ref=e1146]':
+                  - generic [ref=e1148]: "53.5"
+              - cell "● good" [ref=e1149]:
+                - generic "5/5 metrics confirmed" [ref=e1150]: ● good
+              - cell "↗" [ref=e1151]:
+                - link "↗" [ref=e1152]:
+                  - /url: https://www.geckoterminal.com/base/pools/0xa5a98447c7e10dbf35da4a4c4ba151539c200344
+        - generic [ref=e1153]:
+          - generic [ref=e1154]: "Last updated: 5/12/2026, 11:42:36 PM"
+          - generic [ref=e1155]: "· Data sources: GeckoTerminal, DeFi Llama"
+          - generic [ref=e1156]:
+            - text: ·
+            - emphasis [ref=e1157]: APR/APY values are estimates based on 24h volume. Actual returns may vary.

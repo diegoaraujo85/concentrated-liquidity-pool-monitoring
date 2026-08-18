@@ -1,0 +1,45 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - img [ref=e5]
+        - generic [ref=e9]: CLPMonitor
+      - navigation [ref=e10]:
+        - button "Pool Monitor" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - text: Pool Monitor
+        - button "Wallet Tracker" [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Wallet Tracker
+    - generic [ref=e17]:
+      - generic [ref=e20]: Fetching pool data...
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - combobox "Auto-refresh interval" [ref=e23] [cursor=pointer]:
+            - option "15s"
+            - option "30s"
+            - option "60s" [selected]
+            - option "5 min"
+            - option "Manual"
+          - button "Refresh now" [ref=e24] [cursor=pointer]:
+            - img [ref=e25]
+        - button "Configure columns" [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+        - button "Toggle theme" [ref=e30] [cursor=pointer]:
+          - img [ref=e31]
+  - main [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - heading "Pool Monitor" [level=1] [ref=e38]
+          - generic [ref=e39]: Loading pools...
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - button "Conservative" [ref=e42] [cursor=pointer]
+            - button "Aggressive" [ref=e43] [cursor=pointer]
+          - generic [ref=e44]:
+            - img
+            - textbox "Search tokens, pairs, addresses..." [ref=e45]
+      - generic [ref=e47] [cursor=pointer]:
+        - img [ref=e48]
+        - text: Filters
