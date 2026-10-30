@@ -1,0 +1,13 @@
+node_modules/
+package-lock.json
+*.log
+.env
+.DS_Store
+dist/
+build/
+coverage/
+.nyc_output/
+*.local
+.playwright-cli/report/
+test-results/
+playwright-report/
