@@ -265,31 +265,49 @@ const App = (() => {
     showProgress(true);
 
     try {
-      const result = await API.fetchAllPools((progress) => {
-        State.set('progress', { ...progress, visible: true });
-        updateProgress(progress.completed, progress.total, `${progress.protocol} on ${progress.network}`);
-      });
+      let rawPools;
 
-      if (result.errors.length > 0) {
-        console.warn('[CLP Monitor] Fetch errors:', result.errors);
-        for (const err of result.errors) {
-          showToast(`Failed: ${err.protocol} on ${err.network} — ${err.error}`, 'warning', 5000);
+      // Use cache if valid
+      if (State.isCacheValid()) {
+        rawPools = State.getCache();
+        updateStatus('live', `${rawPools.length} pools loaded from cache`);
+        showToast(`Loaded ${rawPools.length} pools from cache`, 'info');
+      } else {
+        const result = await API.fetchAllPools((progress) => {
+          State.set('progress', { ...progress, visible: true });
+          updateProgress(progress.completed, progress.total, `${progress.protocol} on ${progress.network}`);
+        });
+
+        rawPools = result.pools;
+
+        if (result.errors.length > 0) {
+          console.warn('[CLP Monitor] Fetch errors:', result.errors);
+          for (const err of result.errors) {
+            showToast(`Failed: ${err.protocol} on ${err.network} — ${err.error}`, 'warning', 5000);
+          }
         }
+
+        State.set('monitor.errors', result.errors);
+
+        // Save to cache
+        State.setCache(rawPools);
       }
 
-      // Score pools
+      // Score pools in chunks to avoid blocking the UI
       const profile = state.monitor.profile;
-      const scored = Scoring.scoreAllPools(result.pools, profile);
+      const scored = await scorePoolsInChunks(rawPools, profile);
 
       State.set('monitor.pools', scored);
-      State.set('monitor.errors', result.errors);
-      State.set('monitor.lastUpdated', result.timestamp);
+      State.set('monitor.lastUpdated', new Date().toISOString());
+
+      // Reset pagination to first page on new data
+      State.set('monitor.pagination.page', 1);
 
       // Apply filters
       State.applyPoolFilters();
 
       const poolCount = scored.length;
-      const errorCount = result.errors.length;
+      const errorCount = state.monitor.errors.length;
 
       updateStatus('live', `${poolCount} pools loaded${errorCount > 0 ? ` (${errorCount} errors)` : ''}`);
       showToast(`Loaded ${poolCount} pools from ${Object.keys(CONFIG.PROTOCOLS).length} protocols`, 'success');
@@ -307,6 +325,28 @@ const App = (() => {
       State.set('monitor.loading', false);
       showProgress(false);
     }
+  }
+
+  // Score pools in chunks to avoid blocking the main thread on large datasets
+  function scorePoolsInChunks(pools, profile, chunkSize = 200) {
+    return new Promise((resolve) => {
+      const scored = [];
+      let i = 0;
+
+      function processChunk() {
+        const end = Math.min(i + chunkSize, pools.length);
+        for (; i < end; i++) {
+          scored.push(Scoring.scorePool(pools[i], pools, profile));
+        }
+        if (i < pools.length) {
+          setTimeout(processChunk, 0); // yield to browser
+        } else {
+          resolve(scored);
+        }
+      }
+
+      processChunk();
+    });
   }
 
   // Wallet position fetching
@@ -468,11 +508,26 @@ const App = (() => {
       info: '\u2139'
     };
 
-    toast.innerHTML = `
-      <span class="toast-icon">${icons[type] || '\u2139'}</span>
-      <span class="toast-message">${message}</span>
-      <button class="toast-close" onclick="this.parentElement.remove()">\u2715</button>
-    `;
+    // Icon is hardcoded (not user input)
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'toast-icon';
+    iconSpan.textContent = icons[type] || '\u2139';
+
+    // Message is user/API input — MUST use textContent to prevent XSS
+    const msgSpan = document.createElement('span');
+    msgSpan.className = 'toast-message';
+    msgSpan.textContent = message;
+
+    // Close button: no inline onclick (CSP-safe), use event listener
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast-close';
+    closeBtn.type = 'button';
+    closeBtn.textContent = '\u2715';
+    closeBtn.addEventListener('click', () => toast.remove());
+
+    toast.appendChild(iconSpan);
+    toast.appendChild(msgSpan);
+    toast.appendChild(closeBtn);
 
     container.appendChild(toast);
 
@@ -531,6 +586,17 @@ const App = (() => {
     State.saveToLocalStorage();
   }
 
+  // Pagination
+  function setPoolPage(page) {
+    State.setPoolPage(page);
+    if (State.get().page === 'monitor') UI.renderPoolMonitor();
+  }
+
+  function setPoolPerPage(perPage) {
+    State.setPoolPerPage(perPage);
+    if (State.get().page === 'monitor') UI.renderPoolMonitor();
+  }
+
   // Utility
   function debounce(fn, ms) {
     let timer;
@@ -554,6 +620,8 @@ const App = (() => {
     updateFilter,
     updateSort,
     setProfile,
+    setPoolPage,
+    setPoolPerPage,
     showToast,
     renderCurrentPage
   };
