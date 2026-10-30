@@ -127,6 +127,7 @@ const API = (() => {
       createdAt: null,
       volumeTvlRatio,
       pairType: bothStable ? 'stable' : 'volatile',
+      correlationScore: bothStable ? 0.95 : 0.30,
       il7d,
       exposure,
 
@@ -456,5 +457,17 @@ const API = (() => {
     return { positions, limitations };
   }
 
-  return { fetchAllPools, searchPools, fetchWalletPositions };
+  // URL validation — prevents XSS via javascript: URIs in <a href>
+  function safeUrl(url) {
+    if (!url || typeof url !== 'string') return '#';
+    try {
+      const u = new URL(url);
+      if (!['http:', 'https:'].includes(u.protocol)) return '#';
+      return url;
+    } catch {
+      return '#';
+    }
+  }
+
+  return { fetchAllPools, searchPools, fetchWalletPositions, safeUrl };
 })();

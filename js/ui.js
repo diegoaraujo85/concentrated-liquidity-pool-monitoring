@@ -359,17 +359,23 @@ const UI = (() => {
 
   function renderPoolMonitor() {
     const state = State.get();
-    const pools = state.monitor.filteredPools;
+    const pools = State.getPagedPools();
+    const allFiltered = state.monitor.filteredPools;
     const cols = state.monitor.visibleColumns;
     const sortBy = state.monitor.sortBy;
     const sortDir = state.monitor.sortDir;
+    const pagination = state.monitor.pagination;
+    const totalPages = State.getTotalPages();
 
     // Update count label
+    const total = state.monitor.pools.length;
+    const filteredCount = allFiltered.length;
     const label = document.getElementById('pool-count-label');
     if (label) {
-      const total = state.monitor.pools.length;
-      const shown = pools.length;
-      label.textContent = `${shown} of ${total} pools${state.monitor.errors.length > 0 ? ` · ${state.monitor.errors.length} sources failed` : ''}`;
+      const start = (pagination.page - 1) * pagination.perPage + 1;
+      const end = Math.min(pagination.page * pagination.perPage, filteredCount);
+      const pageInfo = filteredCount > 0 ? ` (showing ${start}-${end})` : '';
+      label.textContent = `${filteredCount} of ${total} pools${pageInfo}${state.monitor.errors.length > 0 ? ` · ${state.monitor.errors.length} sources failed` : ''}`;
     }
 
     // Summary cards
@@ -385,7 +391,55 @@ const UI = (() => {
     }
 
     if (pools.length === 0 && !state.monitor.loading) {
-      wrapper.innerHTML = renderEmptyState('No pools found', 'Try adjusting your filters or wait for data to load.', 'Refresh Data', () => App.fetchPoolData());
+      const hasActiveFilters = State.get().monitor.filters.networks.length > 0
+        || State.get().monitor.filters.protocols.length > 0
+        || State.get().monitor.filters.assets.length > 0
+        || State.get().monitor.filters.pairType !== ''
+        || State.get().monitor.filters.tvlMin !== null
+        || State.get().monitor.filters.tvlMax !== null
+        || State.get().monitor.filters.volume24hMin !== null
+        || State.get().monitor.filters.volume24hMax !== null
+        || State.get().monitor.filters.volumeTvlRatioMin !== null
+        || State.get().monitor.filters.ageMin !== null
+        || State.get().monitor.filters.ageMax !== null
+        || State.get().monitor.filters.volatilityMin !== null
+        || State.get().monitor.filters.volatilityMax !== null
+        || State.get().monitor.filters.hideIncompleteData;
+      
+      let html = renderEmptyState(
+        'No pools found',
+        hasActiveFilters 
+          ? 'No pools match your current filters. Try adjusting or clearing them.'
+          : 'Try adjusting your filters or wait for data to load.',
+        'Refresh Data',
+        () => App.fetchPoolData()
+      );
+      
+      // Add Clear Filters button if there are active filters
+      if (hasActiveFilters) {
+        html = html.replace('</div>', `
+          <button class="btn btn-secondary empty-action" id="empty-clear-filters-btn" style="margin-top: 8px;">Clear Filters</button>
+        </div>`);
+      }
+      
+      wrapper.innerHTML = html;
+      
+      // Wire up Clear Filters button
+      const clearBtn = document.getElementById('empty-clear-filters-btn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          const defaults = {
+            networks: [], protocols: [], assets: [], pairType: '',
+            tvlMin: null, tvlMax: null, volume24hMin: null, volume24hMax: null,
+            volumeTvlRatioMin: null, ageMin: null, ageMax: null,
+            volatilityMin: null, volatilityMax: null, hideIncompleteData: false
+          };
+          State.set('monitor.filters', defaults);
+          State.applyPoolFilters();
+          renderPoolMonitorPage(document.getElementById('app-content'));
+          renderPoolMonitor();
+        });
+      }
       return;
     }
 
@@ -456,6 +510,9 @@ const UI = (() => {
 
     html += '</tbody></table></div>';
 
+    // Pagination controls
+    html += renderPaginationControls(filteredCount, pagination, totalPages);
+
     // Last updated
     if (state.monitor.lastUpdated) {
       html += `<div class="table-footer"><span class="text-muted">Last updated: ${new Date(state.monitor.lastUpdated).toLocaleString()}</span>
@@ -514,6 +571,70 @@ const UI = (() => {
         if (pool) openPoolDetail(pool);
       });
     });
+
+    // Wire pagination controls
+    const perPageSelect = document.getElementById('pagin-per-page');
+    if (perPageSelect) {
+      perPageSelect.value = String(pagination.perPage);
+      perPageSelect.addEventListener('change', (e) => {
+        App.setPoolPerPage(parseInt(perPageSelect.value, 10));
+      });
+    }
+
+    wrapper.querySelectorAll('.pagin-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const action = btn.dataset.action;
+        if (action === 'prev') App.setPoolPage(pagination.page - 1);
+        else if (action === 'next') App.setPoolPage(pagination.page + 1);
+        else if (action === 'page') App.setPoolPage(parseInt(btn.dataset.page, 10));
+      });
+    });
+  }
+
+  function renderPaginationControls(totalItems, pagination, totalPages) {
+    const perPage = pagination.perPage;
+    const page = pagination.page;
+    const options = pagination.perPageOptions.map(opt =>
+      `<option value="${opt}" ${opt === perPage ? 'selected' : ''}>${opt} por página</option>`
+    ).join('');
+
+    if (totalPages <= 1) return '';
+
+    // Build visible page numbers (max 5 around current)
+    let pages = [];
+    if (totalPages <= 5) {
+      pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      let start = Math.max(1, page - 2);
+      let end = Math.min(totalPages, page + 2);
+      if (start === 1) end = Math.min(5, totalPages);
+      if (end === totalPages) start = Math.max(1, totalPages - 4);
+      pages = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    }
+
+    const pageButtons = pages.map(p =>
+      `<a href="#" class="pagin-btn ${p === page ? 'active' : ''}" data-action="page" data-page="${p}">${p}</a>`
+    ).join('');
+
+    const startItem = (page - 1) * perPage + 1;
+    const endItem = Math.min(page * perPage, totalItems);
+
+    return `
+    <div class="pagination-controls" id="pagination-controls">
+      <div class="pagination-info">
+        Exibindo <strong>${startItem}</strong> a <strong>${endItem}</strong> de <strong>${totalItems}</strong> pools
+      </div>
+      <div class="pagination-actions">
+        <label class="pagination-label">Itens por página:</label>
+        <select id="pagin-per-page" class="select-sm">${options}</select>
+      </div>
+      <div class="pagination-nav">
+        <a href="#" class="pagin-btn ${page === 1 ? 'disabled' : ''}" data-action="prev">Anterior</a>
+        ${pageButtons}
+        <a href="#" class="pagin-btn ${page === totalPages ? 'disabled' : ''}" data-action="next">Próximo</a>
+      </div>
+    </div>`;
   }
 
   function renderPoolCell(pool, col) {
@@ -530,6 +651,12 @@ const UI = (() => {
         : `<span class="mono-data ${pool.apr > 50 ? 'text-green' : ''}" title="Source: ${pool.dataQuality?.aprSource || 'estimated'}">${fmtPct(pool.apr)}${pool.dataQuality?.aprSource === 'estimated_from_volume' ? ' *' : ''}</span>`;
       case 'apy': return `<span class="mono-data">${fmtPct(pool.apy)}</span>`;
       case 'volatility': return `<span class="mono-data">${fmtPct(pool.volatility)}</span>`;
+      case 'correlation': {
+        const c = pool.correlationScore !== null && pool.correlationScore !== undefined ? pool.correlationScore : 0;
+        const pct = Math.round(c * 100);
+        const cls = c >= 0.8 ? 'text-red' : c >= 0.5 ? 'text-orange' : 'text-green';
+        return `<span class="mono-data ${cls}" title="Correlation: ${pct}% (proxy based on pair type)">${pct}%</span>`;
+      }
       case 'age': return `<span class="mono-data">${fmtAge(pool.ageDays)}</span>`;
       case 'volumeTvlRatio': return `<span class="mono-data">${pool.volumeTvlRatio !== null ? pool.volumeTvlRatio.toFixed(3) : '—'}</span>`;
       case 'rangeCenter': return `<span class="mono-data">${pool.rangeCenterDist !== null ? fmtPct(pool.rangeCenterDist) : '—'}</span>`;
@@ -544,7 +671,7 @@ const UI = (() => {
       case 'link': {
         const url = pool.sourceUrl || pool.llamaUrl || pool.geckoUrl;
         const label = pool.source === 'defillama' ? 'DeFi Llama' : pool.source === 'geckoterminal' ? 'GeckoTerminal' : 'View';
-        return `<a href="${url}" target="_blank" rel="noopener" class="btn-link" onclick="event.stopPropagation()" title="Open on ${label}">↗</a>`;
+        return `<a href="${API.safeUrl(url)}" target="_blank" rel="noopener" class="btn-link" onclick="event.stopPropagation()" title="Open on ${label}">↗</a>`;
       }
       default: return '—';
     }
@@ -664,7 +791,7 @@ const UI = (() => {
       </div>
 
       <div class="detail-actions">
-        <a href="${pool.sourceUrl || pool.llamaUrl || pool.geckoUrl}" target="_blank" rel="noopener" class="btn btn-primary">Open on ${pool.sourceName || 'DeFi Llama'} ↗</a>
+        <a href="${API.safeUrl(pool.sourceUrl || pool.llamaUrl || pool.geckoUrl)}" target="_blank" rel="noopener" class="btn btn-primary">Open on ${pool.sourceName || 'DeFi Llama'} ↗</a>
       </div>
     `;
 
@@ -996,7 +1123,7 @@ const UI = (() => {
       case 'lastUpdate': return fmtTime(pos.lastUpdated);
       case 'health': return healthBadge(pos.health);
       case 'urgency': return urgencyBadge(pos.urgency);
-      case 'link': return `<a href="${pos.link}" target="_blank" rel="noopener" class="btn-link" onclick="event.stopPropagation()">↗</a>`;
+      case 'link': return `<a href="${API.safeUrl(pos.link)}" target="_blank" rel="noopener" class="btn-link" onclick="event.stopPropagation()">↗</a>`;
       default: return '—';
     }
   }
