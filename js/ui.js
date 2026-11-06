@@ -1,6 +1,16 @@
 // UI Rendering Module
 const UI = (() => {
 
+  // Debounce utility — delays filter updates to avoid excessive API calls
+  function debounce(func, wait) {
+    let timeoutId;
+    return function (...args) {
+      const context = this;
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
+
   // === UTILITY FORMATTERS ===
 
   function fmtUSD(val) {
@@ -313,16 +323,16 @@ const UI = (() => {
     const pairType = document.getElementById('filter-pairType');
     if (pairType) pairType.addEventListener('change', () => { App.updateFilter('pairType', pairType.value || ''); updateFilterCount(); });
 
-    // Number inputs
+    // Number inputs — debounced 500ms to avoid excessive API calls
     const numFilters = ['tvlMin', 'tvlMax', 'volume24hMin', 'volume24hMax', 'volumeTvlRatioMin', 'ageMin', 'ageMax', 'volatilityMin', 'volatilityMax'];
     for (const key of numFilters) {
       const el = document.getElementById(`filter-${key}`);
       if (el) {
-        el.addEventListener('change', () => {
+        el.addEventListener('change', debounce(() => {
           const val = el.value ? parseFloat(el.value) : null;
           App.updateFilter(key, val);
           updateFilterCount();
-        });
+        }, 500));
       }
     }
 
