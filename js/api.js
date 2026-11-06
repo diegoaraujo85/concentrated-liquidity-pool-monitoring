@@ -560,4 +560,29 @@ import { checkApiHealth } from './health-check.js';
     return { ...apiHealthCache, stale: false };
   }
 
-export { fetchAllPools, searchPools, fetchWalletPositions, safeUrl, checkAllApiHealth, getApiHealthStatus };
+export { fetchAllPools, searchPools, fetchWalletPositions, safeUrl, checkAllApiHealth, getApiHealthStatus, fetchVolatilityFromOHLCV };
+
+// --- Real volatility from CoinGecko/GeckoTerminal OHLCV ---
+async function fetchVolatilityFromOHLCV(network, poolAddress, timeframe = 'day') {
+  try {
+    // GeckoTerminal OHLCV endpoint
+    const url = `${CONFIG.API.GECKO_BASE}/networks/${network}/pools/${poolAddress}/ohlcv/${timeframe}`;
+    const data = await fetchWithRetry(url);
+    const ohlcv = (data.data || {}).attributes || {};
+    const ohlcvList = ohlcv.ohlcv_list || [];
+
+    if (!ohlcvList || ohlcvList.length < 2) return null;
+
+    // ohlcv_list entries: [timestamp, open, high, low, close, volume]
+    const closePrices = ohlcvList.map(entry => parseFloat(entry[4])).filter(p => p > 0);
+
+    if (closePrices.length < 2) return null;
+
+    // Import volatility calculation from scoring module
+    const { calculateVolatilityFromOHLCV } = await import('./scoring.js');
+    return calculateVolatilityFromOHLCV(closePrices);
+  } catch (e) {
+    console.warn(`[CLP] OHLCV volatility fetch failed for ${network}/${poolAddress}:`, e.message);
+    return null;
+  }
+}

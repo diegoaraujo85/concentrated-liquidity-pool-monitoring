@@ -277,3 +277,35 @@ describe('Scoring — Normalização absoluta', () => {
     expect(sStable.score).toBeGreaterThan(sVolatile.score);
   });
 });
+
+describe('Scoring — Volatilidade real via OHLCV', () => {
+  it('returns null for empty or insufficient prices', () => {
+    expect(Scoring.calculateVolatilityFromOHLCV([])).toBeNull();
+    expect(Scoring.calculateVolatilityFromOHLCV([100])).toBeNull();
+    expect(Scoring.calculateVolatilityFromOHLCV(null)).toBeNull();
+  });
+
+  it('returns low volatility for stable prices', () => {
+    const prices = Array.from({ length: 30 }, (_, i) => 100 + i * 0.01); // nearly flat
+    const vol = Scoring.calculateVolatilityFromOHLCV(prices);
+    expect(vol).toBeLessThan(5);
+  });
+
+  it('returns high volatility for swinging prices', () => {
+    const prices = [100, 110, 95, 115, 90, 120, 85]; // big swings
+    const vol = Scoring.calculateVolatilityFromOHLCV(prices);
+    expect(vol).toBeGreaterThan(50);
+  });
+
+  it('annualizes correctly — ~1% daily vol → ~19% annual', () => {
+    // Prices with ~1% average daily return + noise → real volatility
+    const prices = [100];
+    for (let i = 1; i < 30; i++) {
+      const noise = (Math.sin(i) * 0.01); // ±1% daily noise
+      prices.push(prices[i - 1] * 1.01 * (1 + noise));
+    }
+    const vol = Scoring.calculateVolatilityFromOHLCV(prices);
+    expect(vol).toBeGreaterThan(5);
+    expect(vol).toBeLessThan(60);
+  });
+});

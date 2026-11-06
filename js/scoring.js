@@ -122,6 +122,22 @@ import { CONFIG } from './config.js';
   const VOLATILITY_THRESHOLDS = [2, 5, 20]; // %
   const AGE_THRESHOLDS = [7, 30, 90]; // days
 
+  // Calculate real volatility from OHLCV close prices (annualized %)
+  function calculateVolatilityFromOHLCV(prices) {
+    if (!prices || prices.length < 2) return null;
+    const returns = [];
+    for (let i = 1; i < prices.length; i++) {
+      if (prices[i] > 0 && prices[i - 1] > 0) {
+        returns.push(Math.log(prices[i] / prices[i - 1]));
+      }
+    }
+    if (returns.length === 0) return null;
+    const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
+    const variance = returns.reduce((sum, r) => sum + Math.pow(r - mean, 2), 0) / returns.length;
+    const dailyVol = Math.sqrt(variance);
+    return dailyVol * Math.sqrt(365) * 100; // annualized in %
+  }
+
   function normalizeLinear(value, min, max, invert = false) {
     if (value === null || value === undefined || value <= 0) return 0;
     let n = (value - min) / (max - min);
@@ -354,7 +370,8 @@ const Scoring = {
   scoreAllPools,
   scorePosition,
   scoreAllPositions,
-  walletSummary
+  walletSummary,
+  calculateVolatilityFromOHLCV
 };
 
 export { Scoring };
