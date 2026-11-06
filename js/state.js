@@ -22,7 +22,7 @@ const State = (() => {
       visibleColumns: [...(CONFIG.VIEW_PRESETS.conservative.poolColumns || Object.keys(CONFIG.POOL_COLUMNS).filter(k => CONFIG.POOL_COLUMNS[k].default))],
 
       // Sort
-      sortBy: 'score',
+      sortBy: 'tvl',
       sortDir: 'desc',
 
       // Filters
@@ -44,6 +44,13 @@ const State = (() => {
         volatilityMax: null,
         liquidityEffectiveMin: null,
         hideIncompleteData: false
+      },
+
+      // Pagination
+      pagination: {
+        page: 1,
+        perPage: 20,
+        perPageOptions: [10, 20, 50, 100]
       },
 
       // Custom pools added by user
@@ -98,6 +105,13 @@ const State = (() => {
       network: '',
       completed: 0,
       total: 0
+    },
+
+    // Cache
+    cache: {
+      pools: null,
+      timestamp: null,
+      ttlMs: 300000 // 5 minutes
     }
   };
 
@@ -241,8 +255,38 @@ const State = (() => {
     });
 
     state.monitor.filteredPools = filtered;
+    // Reset to first page when filters change
+    state.monitor.pagination.page = 1;
     notify('monitor.filteredPools');
   }
+
+  // --- Pagination ---
+
+  function getPagedPools() {
+    const { filteredPools, pagination } = state.monitor;
+    const start = (pagination.page - 1) * pagination.perPage;
+    return filteredPools.slice(start, start + pagination.perPage);
+  }
+
+  function getTotalPages() {
+    const { filteredPools, pagination } = state.monitor;
+    return Math.max(1, Math.ceil(filteredPools.length / pagination.perPage));
+  }
+
+  function setPoolPage(page) {
+    const total = getTotalPages();
+    const clamped = Math.max(1, Math.min(total, page));
+    state.monitor.pagination.page = clamped;
+    notify('monitor.pagination.page');
+  }
+
+  function setPoolPerPage(perPage) {
+    state.monitor.pagination.perPage = perPage;
+    state.monitor.pagination.page = 1;
+    notify('monitor.pagination.perPage');
+  }
+
+  // --- End Pagination ---
 
   // Filter positions
   function applyPositionFilters() {
@@ -317,32 +361,102 @@ const State = (() => {
     }
   }
 
+  function validateSavedState(saved) {
+    if (!saved || typeof saved !== 'object') return {};
+    const result = {};
+
+    // theme
+    result.theme = (typeof saved.theme === 'string' && ['dark', 'light'].includes(saved.theme))
+      ? saved.theme : 'dark';
+
+    // monitor
+    const savedMonitor = saved.monitor && typeof saved.monitor === 'object' && !Array.isArray(saved.monitor)
+      ? saved.monitor : {};
+    result.monitor = {
+      refreshInterval: (typeof savedMonitor.refreshInterval === 'string' && ['15s', '30s', '60s', '5min', 'manual'].includes(savedMonitor.refreshInterval))
+        ? savedMonitor.refreshInterval : '60s',
+      profile: (typeof savedMonitor.profile === 'string' && ['conservative', 'aggressive'].includes(savedMonitor.profile))
+        ? savedMonitor.profile : 'conservative',
+      viewPreset: (typeof savedMonitor.viewPreset === 'string' && ['conservative', 'aggressive', 'custom'].includes(savedMonitor.viewPreset))
+        ? savedMonitor.viewPreset : 'conservative',
+      visibleColumns: Array.isArray(savedMonitor.visibleColumns) ? savedMonitor.visibleColumns : [],
+      filters: (typeof savedMonitor.filters === 'object' && !Array.isArray(savedMonitor.filters)) ? savedMonitor.filters : {}
+    };
+
+    // tracker
+    const savedTracker = saved.tracker && typeof saved.tracker === 'object' && !Array.isArray(saved.tracker)
+      ? saved.tracker : {};
+    const rawWallets = Array.isArray(savedTracker.wallets) ? savedTracker.wallets : [];
+    result.tracker = {
+      wallets: rawWallets.filter(w =>
+        w && typeof w === 'object' &&
+        typeof w.address === 'string' && /^0x[a-fA-F0-9]{40}$/.test(w.address) &&
+        typeof w.network === 'string' &&
+        typeof w.label === 'string'
+      ),
+      refreshInterval: (typeof savedTracker.refreshInterval === 'string' && ['15s', '30s', '60s', '5min', 'manual'].includes(savedTracker.refreshInterval))
+        ? savedTracker.refreshInterval : '60s',
+      viewPreset: (typeof savedTracker.viewPreset === 'string' && ['conservative', 'aggressive', 'custom'].includes(savedTracker.viewPreset))
+        ? savedTracker.viewPreset : 'conservative',
+      visibleColumns: Array.isArray(savedTracker.visibleColumns) ? savedTracker.visibleColumns : [],
+      filters: (typeof savedTracker.filters === 'object' && !Array.isArray(savedTracker.filters)) ? savedTracker.filters : {}
+    };
+
+    return result;
+  }
+
   function loadFromLocalStorage() {
     try {
       const saved = JSON.parse(localStorage.getItem('clp_monitor_state') || '{}');
-      if (saved.theme) state.theme = saved.theme;
-      if (saved.monitor) {
+      const validated = validateSavedState(saved);
+
+      if (validated.theme) state.theme = validated.theme;
+      if (validated.monitor) {
         Object.assign(state.monitor, {
-          refreshInterval: saved.monitor.refreshInterval || '60s',
-          profile: saved.monitor.profile || 'conservative',
-          viewPreset: saved.monitor.viewPreset || 'conservative',
-          visibleColumns: saved.monitor.visibleColumns || state.monitor.visibleColumns,
-          filters: { ...state.monitor.filters, ...(saved.monitor.filters || {}) }
+          refreshInterval: validated.monitor.refreshInterval || '60s',
+          profile: validated.monitor.profile || 'conservative',
+          viewPreset: validated.monitor.viewPreset || 'conservative',
+          visibleColumns: validated.monitor.visibleColumns || state.monitor.visibleColumns,
+          filters: { ...state.monitor.filters, ...(validated.monitor.filters || {}) }
         });
       }
-      if (saved.tracker) {
+      if (validated.tracker) {
         Object.assign(state.tracker, {
-          wallets: saved.tracker.wallets || [],
-          refreshInterval: saved.tracker.refreshInterval || '60s',
-          viewPreset: saved.tracker.viewPreset || 'conservative',
-          visibleColumns: saved.tracker.visibleColumns || state.tracker.visibleColumns,
-          filters: { ...state.tracker.filters, ...(saved.tracker.filters || {}) }
+          wallets: validated.tracker.wallets || [],
+          refreshInterval: validated.tracker.refreshInterval || '60s',
+          viewPreset: validated.tracker.viewPreset || 'conservative',
+          visibleColumns: validated.tracker.visibleColumns || state.tracker.visibleColumns,
+          filters: { ...state.tracker.filters, ...(validated.tracker.filters || {}) }
         });
       }
     } catch (e) {
       console.warn('Failed to load state:', e);
     }
   }
+
+  // --- Cache ---
+
+  function isCacheValid() {
+    const c = state.cache;
+    if (!c || !c.pools || !c.timestamp) return false;
+    return Date.now() - c.timestamp < c.ttlMs;
+  }
+
+  function setCache(pools) {
+    state.cache.pools = pools;
+    state.cache.timestamp = Date.now();
+  }
+
+  function getCache() {
+    return state.cache.pools || null;
+  }
+
+  function clearCache() {
+    state.cache.pools = null;
+    state.cache.timestamp = null;
+  }
+
+  // --- End Cache ---
 
   return {
     get,
@@ -352,7 +466,15 @@ const State = (() => {
     notify,
     applyPoolFilters,
     applyPositionFilters,
+    getPagedPools,
+    getTotalPages,
+    setPoolPage,
+    setPoolPerPage,
     saveToLocalStorage,
-    loadFromLocalStorage
+    loadFromLocalStorage,
+    isCacheValid,
+    setCache,
+    getCache,
+    clearCache
   };
 })();
