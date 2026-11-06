@@ -522,5 +522,41 @@ const API = (() => {
     }
   }
 
-  return { fetchAllPools, searchPools, fetchWalletPositions, safeUrl };
-})();
+  // --- API Health Check ---
+  let apiHealthCache = { results: {}, checkedAt: 0, ttlMs: 300000 }; // 5 min cache
+
+  async function checkAllApiHealth() {
+    const apis = [
+      { name: 'defillama', url: CONFIG.API.DEFI_LLAMA_YIELDS, type: 'api' },
+      { name: 'geckoterminal', url: `${CONFIG.API.GECKO_BASE}/search/pools?query=ETH`, type: 'api' },
+    ];
+
+    // Add RPC endpoints
+    for (const [key, url] of Object.entries(CONFIG.API_RPC_URLS || CONFIG.RPC_URLS || {})) {
+      apis.push({ name: `rpc-${key}`, url, type: 'rpc' });
+    }
+
+    const results = {};
+    for (const api of apis) {
+      results[api.name] = await checkApiHealth(api.url, 8000);
+    }
+
+    apiHealthCache = {
+      results,
+      checkedAt: Date.now(),
+      ttlMs: 300000,
+    };
+    return results;
+  }
+
+  function getApiHealthStatus() {
+    const now = Date.now();
+    if (now - apiHealthCache.checkedAt > apiHealthCache.ttlMs || Object.keys(apiHealthCache.results).length === 0) {
+      // Return stale or empty — caller can trigger refresh
+      return { ...apiHealthCache, stale: true };
+    }
+    return { ...apiHealthCache, stale: false };
+  }
+
+  return { fetchAllPools, searchPools, fetchWalletPositions, safeUrl, checkAllApiHealth, getApiHealthStatus };
+  })();
