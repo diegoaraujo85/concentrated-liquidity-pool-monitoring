@@ -49,8 +49,8 @@ const State = (() => {
       // Pagination
       pagination: {
         page: 1,
-        perPage: 20,
-        perPageOptions: [10, 20, 50, 100]
+        perPage: 25,
+        perPageOptions: [25, 50, 100]
       },
 
       // Custom pools added by user
