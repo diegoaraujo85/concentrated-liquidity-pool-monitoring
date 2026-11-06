@@ -55,14 +55,14 @@
             <option value="5min">5 min</option>
             <option value="manual">Manual</option>
           </select>
-          <button class="btn-icon" id="btn-refresh" title="Refresh now">
+          <button class="btn-icon" id="btn-refresh" title="Refresh now" aria-label="Atualizar dados">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.65 2.35A8 8 0 1016 8h-2a6 6 0 11-1.76-4.24L10 6h6V0l-2.35 2.35z"/></svg>
           </button>
         </div>
-        <button class="btn-icon" id="btn-columns" title="Configure columns">
+        <button class="btn-icon" id="btn-columns" title="Configure columns" aria-label="Configurar colunas">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1h4v14H0V1zm6 0h4v14H6V1zm6 0h4v14h-4V1z" opacity="0.8"/></svg>
         </button>
-        <button class="btn-icon" id="btn-theme" title="Toggle theme">
+        <button class="btn-icon" id="btn-theme" title="Toggle theme" aria-label="Alternar tema">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" id="theme-icon"><path d="M8 0a8 8 0 000 16V0z"/></svg>
         </button>
       </div>
@@ -83,11 +83,11 @@
   </main>
 
   <!-- Column Configuration Modal -->
-  <div class="modal-overlay" id="column-modal" style="display:none;">
+  <div class="modal-overlay" id="column-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal">
       <div class="modal-header">
-        <h3 class="modal-title">Configure Columns</h3>
-        <button class="btn-icon modal-close" id="modal-close">
+        <h3 class="modal-title" id="modal-title">Configure Columns</h3>
+        <button class="btn-icon modal-close" id="modal-close" aria-label="Fechar modal de colunas">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.2 3.8L8 8l4.2 4.2-1.4 1.4L6.6 9.4l-4.2 4.2-1.4-1.4L5.2 8 1 3.8l1.4-1.4L6.6 6.6l4.2-4.2z"/></svg>
         </button>
       </div>
@@ -103,14 +103,14 @@
   </div>
 
   <!-- Toast Container -->
-  <div class="toast-container" id="toast-container"></div>
+  <div class="toast-container" id="toast-container" role="alert" aria-live="polite"></div>
 
   <!-- Pool Detail Drawer (hidden by default) -->
-  <div class="drawer-overlay" id="pool-drawer" style="display:none;">
+  <div class="drawer-overlay" id="pool-drawer" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
     <div class="drawer">
       <div class="drawer-header">
         <h3 class="drawer-title" id="drawer-title">Pool Details</h3>
-        <button class="btn-icon" id="drawer-close">
+        <button class="btn-icon" id="drawer-close" aria-label="Fechar drawer de detalhes">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.2 3.8L8 8l4.2 4.2-1.4 1.4L6.6 9.4l-4.2 4.2-1.4-1.4L5.2 8 1 3.8l1.4-1.4L6.6 6.6l4.2-4.2z"/></svg>
         </button>
       </div>
