@@ -1,5 +1,19 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { showToast } from '../js/toast.js';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
+const indexHtml = readFileSync(path.resolve(__dirname, '../index.html'), 'utf-8');
+
+describe('CSP header and inline handlers', () => {
+  it('has Content-Security-Policy meta tag', () => {
+    expect(indexHtml).toContain('Content-Security-Policy');
+  });
+
+  it('does not contain inline onclick handlers in HTML', () => {
+    expect(indexHtml).not.toMatch(/onclick\s*=/i);
+  });
+});
 
 describe('showToast XSS sanitization', () => {
   let container;

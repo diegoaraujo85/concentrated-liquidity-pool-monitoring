@@ -671,7 +671,7 @@ const UI = (() => {
       case 'link': {
         const url = pool.sourceUrl || pool.llamaUrl || pool.geckoUrl;
         const label = pool.source === 'defillama' ? 'DeFi Llama' : pool.source === 'geckoterminal' ? 'GeckoTerminal' : 'View';
-        return `<a href="${API.safeUrl(url)}" target="_blank" rel="noopener" class="btn-link" onclick="event.stopPropagation()" title="Open on ${label}">↗</a>`;
+        return `<a href="${API.safeUrl(url)}" target="_blank" rel="noopener" class="btn-link" data-stop-propagation title="Open on ${label}">↗</a>`;
       }
       default: return '—';
     }
@@ -1123,7 +1123,7 @@ const UI = (() => {
       case 'lastUpdate': return fmtTime(pos.lastUpdated);
       case 'health': return healthBadge(pos.health);
       case 'urgency': return urgencyBadge(pos.urgency);
-      case 'link': return `<a href="${API.safeUrl(pos.link)}" target="_blank" rel="noopener" class="btn-link" onclick="event.stopPropagation()">↗</a>`;
+      case 'link': return `<a href="${API.safeUrl(pos.link)}" target="_blank" rel="noopener" class="btn-link" data-stop-propagation>↗</a>`;
       default: return '—';
     }
   }

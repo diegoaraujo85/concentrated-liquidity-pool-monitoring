@@ -19,6 +19,7 @@ const App = (() => {
     setupThemeToggle();
     setupRefreshControls();
     setupColumnModal();
+    setupStopPropagationLinks();
 
     // Subscribe to state changes for re-rendering
     State.subscribe('*', debounce((s, path) => {
@@ -155,6 +156,13 @@ const App = (() => {
     if (btnApply) btnApply.addEventListener('click', () => applyColumnConfig());
     if (modal) modal.addEventListener('click', (e) => {
       if (e.target === modal) closeColumnModal();
+    });
+  }
+
+  function setupStopPropagationLinks() {
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('[data-stop-propagation]');
+      if (link) e.stopPropagation();
     });
   }
 
