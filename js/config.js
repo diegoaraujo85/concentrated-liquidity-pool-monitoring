@@ -20,7 +20,15 @@ const CONFIG = {
     'uniswap-v4': { name: 'Uniswap V4', networks: ['ethereum', 'base', 'arbitrum'], color: '#00D4AA', llamaProject: 'uniswap-v4', note: 'V4 data limited — may appear under V3 indexers' },
     'orca': { name: 'Orca', networks: ['solana'], color: '#FFD15C', llamaProject: 'orca' },
     'raydium': { name: 'Raydium', networks: ['solana'], color: '#2BDEAC', llamaProject: 'raydium' },
-    'morpho-blue': { name: 'Morpho Blue', networks: ['robinhood'], color: '#FF3E00', llamaProject: 'morpho-blue' }
+    'morpho-blue': { name: 'Morpho Blue', networks: ['ethereum', 'base', 'arbitrum', 'polygon', 'robinhood'], color: '#FF3E00', llamaProject: 'morpho-blue' },
+    'balancer-v3': { name: 'Balancer V3', networks: ['ethereum', 'base', 'arbitrum', 'polygon'], color: '#00A8FF', llamaProject: 'balancer-v3' },
+    'curve-dex': { name: 'Curve', networks: ['ethereum', 'base', 'arbitrum', 'polygon', 'avalanche'], color: '#007AFF', llamaProject: 'curve-dex' },
+    'sushiswap-v3': { name: 'SushiSwap V3', networks: ['ethereum', 'base', 'arbitrum', 'bsc', 'avalanche'], color: '#6C63FF', llamaProject: 'sushiswap-v3' },
+    'pancakeswap-v3': { name: 'PancakeSwap V3', networks: ['ethereum', 'base', 'bsc'], color: '#FFC107', llamaProject: 'pancakeswap-amm-v3' },
+    'aerodrome-slipstream': { name: 'Aerodrome Slipstream', networks: ['base'], color: '#00BFFF', llamaProject: 'aerodrome-slipstream' },
+    'camelot-v3': { name: 'Camelot V3', networks: ['arbitrum'], color: '#FF6B6B', llamaProject: 'camelot-v3' },
+    'quickswap-v3': { name: 'QuickSwap V3', networks: ['polygon'], color: '#00D4AA', llamaProject: 'quickswap-dex' },
+    'thena-integral': { name: 'Thena Integral', networks: ['bsc'], color: '#FF007A', llamaProject: 'thena-integral' }
   },
 
   // Priority assets for filtering
