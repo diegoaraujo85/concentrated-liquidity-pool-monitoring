@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
+import { CONFIG } from '../js/config.js';
+import { State } from '../js/state.js';
 
-const configJs = readFileSync(path.resolve(__dirname, '../js/config.js'), 'utf-8');
-const stateJs = readFileSync(path.resolve(__dirname, '../js/state.js'), 'utf-8');
+window.CONFIG = CONFIG;
+window.State = State;
 
 function setupLocalStorage(savedState) {
   localStorage.clear();
@@ -14,20 +14,10 @@ function setupLocalStorage(savedState) {
   }
 }
 
-function loadScripts() {
-  // Load config.js and expose CONFIG on window
-  let capturedConfig;
-  eval(`(function() { ${configJs} capturedConfig = CONFIG; })()`);
-  window.CONFIG = capturedConfig;
-  // Load state.js and expose State on window
-  let capturedState;
-  eval(`(function() { ${stateJs} capturedState = State; })()`);
-  window.State = capturedState;
-}
-
 describe('State.loadFromLocalStorage — schema validation', () => {
   beforeEach(() => {
-    loadScripts();
+    setupLocalStorage();
+  });
     localStorage.clear();
   });
 

@@ -1,7 +1,8 @@
 // State Management Module
-const State = (() => {
-  // Application state
-  let state = {
+import { CONFIG } from './config.js';
+
+// Application state
+let state = {
     // Current page
     page: 'monitor', // 'monitor' | 'tracker'
 
@@ -458,23 +459,24 @@ const State = (() => {
 
   // --- End Cache ---
 
-  return {
-    get,
-    set,
-    update,
-    subscribe,
-    notify,
-    applyPoolFilters,
-    applyPositionFilters,
-    getPagedPools,
-    getTotalPages,
-    setPoolPage,
-    setPoolPerPage,
-    saveToLocalStorage,
-    loadFromLocalStorage,
-    isCacheValid,
-    setCache,
-    getCache,
-    clearCache
-  };
-})();
+const State = {
+  get,
+  set,
+  update,
+  subscribe,
+  notify,
+  applyPoolFilters,
+  applyPositionFilters,
+  getPagedPools,
+  getTotalPages,
+  setPoolPage,
+  setPoolPerPage,
+  saveToLocalStorage,
+  loadFromLocalStorage,
+  isCacheValid,
+  setCache,
+  getCache,
+  clearCache
+};
+
+export { State };

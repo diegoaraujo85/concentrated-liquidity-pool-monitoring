@@ -1,5 +1,5 @@
 // Scoring, Analytics, and Range Analysis Module
-const Scoring = (() => {
+import { CONFIG } from './config.js';
 
   // Determine pair type
   function getPairType(pool) {
@@ -209,6 +209,7 @@ const Scoring = (() => {
       ta: simplifiedTA(pool),
       liquidityEffective: components.liquidityEffective,
       pairType: getPairType(pool),
+      correlationScore: pool.pairType === 'correlated' ? 0.70 : (pool.pairType === 'stable' ? 0.95 : 0.30),
       scoreComponents: components
     };
   }
@@ -339,14 +340,15 @@ const Scoring = (() => {
     };
   }
 
-  return {
-    getPairType,
-    calculateRange,
-    simplifiedTA,
-    scorePool,
-    scoreAllPools,
-    scorePosition,
-    scoreAllPositions,
-    walletSummary
-  };
-})();
+const Scoring = {
+  getPairType,
+  calculateRange,
+  simplifiedTA,
+  scorePool,
+  scoreAllPools,
+  scorePosition,
+  scoreAllPositions,
+  walletSummary
+};
+
+export { Scoring };

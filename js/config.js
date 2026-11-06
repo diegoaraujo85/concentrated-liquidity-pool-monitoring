@@ -1,5 +1,5 @@
 // Protocol and network configuration
-const CONFIG = {
+export const CONFIG = {
   // Supported networks with their display info
   NETWORKS: {
     ethereum: { id: 'eth', name: 'Ethereum', symbol: 'ETH', explorer: 'https://etherscan.io', color: '#627EEA', geckoId: 'eth', llamaChain: 'Ethereum' },

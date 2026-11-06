@@ -1,14 +1,5 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-
-const configJs = readFileSync(path.resolve(__dirname, '../js/config.js'), 'utf-8');
-
-function loadConfig() {
-  let captured;
-  eval(`(function() { ${configJs} captured = CONFIG; })()`);
-  return captured;
-}
+import { describe, it, expect } from 'vitest';
+import { CONFIG } from '../js/config.js';
 
 function deepFreeze(obj) {
   Object.freeze(obj);
@@ -22,12 +13,6 @@ function deepFreeze(obj) {
 }
 
 describe('CONFIG immutability — Object.freeze', () => {
-  let CONFIG;
-
-  beforeEach(() => {
-    CONFIG = loadConfig();
-  });
-
   it('root CONFIG object is frozen', () => {
     expect(Object.isFrozen(CONFIG)).toBe(true);
   });

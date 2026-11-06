@@ -1,19 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
+import { CONFIG } from '../js/config.js';
+import { State } from '../js/state.js';
 
-const configJs = readFileSync(path.resolve(__dirname, '../js/config.js'), 'utf-8');
-const stateJs = readFileSync(path.resolve(__dirname, '../js/state.js'), 'utf-8');
-
-function loadModules() {
-  let capturedConfig;
-  eval(`(function() { ${configJs} capturedConfig = CONFIG; })()`);
-  window.CONFIG = capturedConfig;
-
-  let capturedState;
-  eval(`(function() { ${stateJs} capturedState = State; })()`);
-  window.State = capturedState;
-}
+window.CONFIG = CONFIG;
+window.State = State;
 
 function createPools(count) {
   return Array.from({ length: count }, (_, i) => ({
@@ -28,7 +18,7 @@ function createPools(count) {
 
 describe('Pagination — getPagedPools', () => {
   beforeEach(() => {
-    loadModules();
+
     const pools = createPools(50);
     State.get().monitor.pools = pools;
     State.get().monitor.filteredPools = pools;
@@ -72,7 +62,7 @@ describe('Pagination — getPagedPools', () => {
 
 describe('Pagination — getTotalPages', () => {
   beforeEach(() => {
-    loadModules();
+
     const pools = createPools(50);
     State.get().monitor.pools = pools;
     State.get().monitor.filteredPools = pools;
@@ -101,7 +91,7 @@ describe('Pagination — getTotalPages', () => {
 
 describe('Pagination — setPoolPage', () => {
   beforeEach(() => {
-    loadModules();
+
     const pools = createPools(50);
     State.get().monitor.pools = pools;
     State.get().monitor.filteredPools = pools;
@@ -126,7 +116,7 @@ describe('Pagination — setPoolPage', () => {
 
 describe('Pagination — setPoolPerPage', () => {
   beforeEach(() => {
-    loadModules();
+
     const pools = createPools(50);
     State.get().monitor.pools = pools;
     State.get().monitor.filteredPools = pools;
@@ -148,7 +138,7 @@ describe('Pagination — setPoolPerPage', () => {
 
 describe('Pagination — perPage options include 25/50/100', () => {
   beforeEach(() => {
-    loadModules();
+
   });
 
   it('config has 25, 50, 100 in perPageOptions', () => {

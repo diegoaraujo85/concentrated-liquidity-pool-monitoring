@@ -1,6 +1,8 @@
 // API Layer - Data fetching and normalization
 // Priority: DeFi Llama > CoinGecko/GeckoTerminal > On-chain RPC
-const API = (() => {
+import { CONFIG } from './config.js';
+import { checkApiHealth } from './health-check.js';
+
   let lastRequestTime = 0;
 
   // --- Retry + failure cache utilities ---
@@ -558,5 +560,4 @@ const API = (() => {
     return { ...apiHealthCache, stale: false };
   }
 
-  return { fetchAllPools, searchPools, fetchWalletPositions, safeUrl, checkAllApiHealth, getApiHealthStatus };
-  })();
+export { fetchAllPools, searchPools, fetchWalletPositions, safeUrl, checkAllApiHealth, getApiHealthStatus };

@@ -1,5 +1,7 @@
 // UI Rendering Module
-const UI = (() => {
+import { CONFIG } from './config.js';
+import { API } from './api.js';
+import { State } from './state.js';
 
   // Debounce utility — delays filter updates to avoid excessive API calls
   function debounce(func, wait) {
@@ -1224,13 +1226,14 @@ const UI = (() => {
     </div>`;
   }
 
-  // Public API
-  return {
-    renderPoolMonitorPage,
-    renderPoolMonitor,
-    renderWalletTrackerPage,
-    renderWalletTracker,
-    renderSearchResults,
-    openPoolDetail
-  };
-})();
+// Public API
+const UI = {
+  renderPoolMonitorPage,
+  renderPoolMonitor,
+  renderWalletTrackerPage,
+  renderWalletTracker,
+  renderSearchResults,
+  openPoolDetail
+};
+
+export { UI };

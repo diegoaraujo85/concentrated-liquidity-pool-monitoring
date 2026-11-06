@@ -1,5 +1,10 @@
 // Main Application Entry Point
-const App = (() => {
+import { CONFIG } from './config.js';
+import { API } from './api.js';
+import { State } from './state.js';
+import { UI } from './ui.js';
+import { Scoring } from './scoring.js';
+
   let refreshTimerId = null;
 
   // Initialize
@@ -617,20 +622,21 @@ const App = (() => {
   // DOM ready
   document.addEventListener('DOMContentLoaded', init);
 
-  // Public API
-  return {
-    fetchPoolData,
-    fetchWalletPositions,
-    searchPools,
-    addCustomPool,
-    addWallet,
-    removeWallet,
-    updateFilter,
-    updateSort,
-    setProfile,
-    setPoolPage,
-    setPoolPerPage,
-    showToast,
-    renderCurrentPage
-  };
-})();
+// Public API
+const App = {
+  fetchPoolData,
+  fetchWalletPositions,
+  searchPools,
+  addCustomPool,
+  addWallet,
+  removeWallet,
+  updateFilter,
+  updateSort,
+  setProfile,
+  setPoolPage,
+  setPoolPerPage,
+  showToast,
+  renderCurrentPage
+};
+
+export { App };

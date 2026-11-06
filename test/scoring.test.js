@@ -1,24 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
+import { CONFIG } from '../js/config.js';
+import { Scoring } from '../js/scoring.js';
 
-const configJs = readFileSync(path.resolve(__dirname, '../js/config.js'), 'utf-8');
-const scoringJs = readFileSync(path.resolve(__dirname, '../js/scoring.js'), 'utf-8');
-
-function loadModules() {
-  let capturedConfig;
-  eval(`(function() { ${configJs} capturedConfig = CONFIG; })()`);
-  window.CONFIG = capturedConfig;
-
-  let capturedScoring;
-  eval(`(function() { ${scoringJs} capturedScoring = Scoring; })()`);
-  window.Scoring = capturedScoring;
-}
+window.CONFIG = CONFIG;
+window.Scoring = Scoring;
 
 describe('Scoring — getPairType', () => {
-  beforeEach(() => {
-    loadModules();
-  });
 
   it('stable pair: both tokens are stablecoins', () => {
     expect(Scoring.getPairType({ baseToken: 'USDC', quoteToken: 'USDT' })).toBe('stable');
@@ -49,7 +36,8 @@ describe('Scoring — getPairType', () => {
 
 describe('Scoring — calculateRange', () => {
   beforeEach(() => {
-    loadModules();
+
+
   });
 
   it('returns null for missing price', () => {
@@ -82,7 +70,8 @@ describe('Scoring — calculateRange', () => {
 
 describe('Scoring — simplifiedTA', () => {
   beforeEach(() => {
-    loadModules();
+
+
   });
 
   it('returns null for missing price', () => {
@@ -118,7 +107,8 @@ describe('Scoring — scorePool', () => {
   ];
 
   beforeEach(() => {
-    loadModules();
+
+
   });
 
   it('returns score between 0 and 100', () => {
@@ -155,7 +145,8 @@ describe('Scoring — scorePool', () => {
 
 describe('Scoring — scorePosition', () => {
   beforeEach(() => {
-    loadModules();
+
+
   });
 
   it('out of range position gets critical urgency', () => {
@@ -187,7 +178,8 @@ describe('Scoring — scorePosition', () => {
 
 describe('Scoring — walletSummary', () => {
   beforeEach(() => {
-    loadModules();
+
+
   });
 
   it('empty positions returns zero summary', () => {
