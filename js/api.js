@@ -3,6 +3,45 @@
 const API = (() => {
   let lastRequestTime = 0;
 
+  // --- Retry + failure cache utilities ---
+  async function retryAsync(fn, maxRetries = 2, baseDelayMs = 800) {
+    let lastError;
+    for (let i = 0; i <= maxRetries; i++) {
+      try {
+        return await fn();
+      } catch (e) {
+        lastError = e;
+        if (i === maxRetries) break;
+        await new Promise(r => setTimeout(r, baseDelayMs * (i + 1)));
+      }
+    }
+    throw lastError;
+  }
+
+  class FailureCache {
+    constructor(ttlMs = 300000) {
+      this.cache = new Map();
+      this.ttlMs = ttlMs;
+    }
+    get(key) {
+      const entry = this.cache.get(key);
+      if (!entry) return null;
+      if (Date.now() - entry.failureTime > entry.ttl) {
+        this.cache.delete(key);
+        return null;
+      }
+      return entry;
+    }
+    set(key, ttlMs = this.ttlMs) {
+      this.cache.set(key, { failureTime: Date.now(), ttl: ttlMs });
+    }
+    delete(key) { this.cache.delete(key); }
+    has(key) { return this.get(key) !== null; }
+    clear() { this.cache.clear(); }
+  }
+
+  const TOKEN_FAILURE_CACHE = new FailureCache(300000); // 5 min
+
   // --- Fetch utilities ---
 
   async function rateLimitedFetch(url, options = {}, timeoutMs) {
@@ -344,9 +383,19 @@ const API = (() => {
   const TOKEN_SYMBOLS = {};
   async function getTokenSymbol(rpcUrl, tokenAddr) {
     const key = tokenAddr.toLowerCase();
+
+    // Return cached success
     if (TOKEN_SYMBOLS[key]) return TOKEN_SYMBOLS[key];
+
+    // Return cached failure if within TTL (don't retry yet)
+    if (TOKEN_FAILURE_CACHE.has(key)) return TOKEN_FAILURE_CACHE.get(key).fallback;
+
     try {
-      const result = await ethCall(rpcUrl, tokenAddr, '0x95d89b41');
+      const result = await retryAsync(
+        () => ethCall(rpcUrl, tokenAddr, '0x95d89b41'),
+        2, // maxRetries
+        800 // baseDelayMs
+      );
       if (result && result.length > 130) {
         const len = parseInt(result.slice(66, 130), 16);
         const raw = result.slice(130, 130 + len * 2);
@@ -354,9 +403,13 @@ const API = (() => {
         TOKEN_SYMBOLS[key] = sym;
         return sym;
       }
-    } catch (e) { /* ignore */ }
-    TOKEN_SYMBOLS[key] = key.slice(0, 6) + '…';
-    return TOKEN_SYMBOLS[key];
+    } catch (e) { /* retry exhausted — fall through to cache failure */ }
+
+    // Cache failure (not permanent — TTL allows retry later)
+    const fallback = key.slice(0, 6) + '…';
+    TOKEN_FAILURE_CACHE.set(key);
+    TOKEN_FAILURE_CACHE.get(key).fallback = fallback;
+    return fallback;
   }
 
   async function fetchWalletPositions(address, network) {
