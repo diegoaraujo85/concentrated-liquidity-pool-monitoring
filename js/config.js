@@ -7,15 +7,20 @@ const CONFIG = {
     arbitrum: { id: 'arbitrum', name: 'Arbitrum', symbol: 'ETH', explorer: 'https://arbiscan.io', color: '#28A0F0', geckoId: 'arbitrum', llamaChain: 'Arbitrum' },
     polygon: { id: 'polygon', name: 'Polygon', symbol: 'MATIC', explorer: 'https://polygonscan.com', color: '#8247E5', geckoId: 'polygon_pos', llamaChain: 'Polygon' },
     bsc: { id: 'bsc', name: 'BSC', symbol: 'BNB', explorer: 'https://bscscan.com', color: '#F0B90B', geckoId: 'bsc', llamaChain: 'BSC' },
-    solana: { id: 'solana', name: 'Solana', symbol: 'SOL', explorer: 'https://solscan.io', color: '#9945FF', geckoId: 'solana', llamaChain: 'Solana' }
+    solana: { id: 'solana', name: 'Solana', symbol: 'SOL', explorer: 'https://solscan.io', color: '#9945FF', geckoId: 'solana', llamaChain: 'Solana' },
+    optimism: { id: 'optimism', name: 'Optimism', symbol: 'ETH', explorer: 'https://optimistic.etherscan.io', color: '#F0103B', geckoId: 'optimism', llamaChain: 'OP Mainnet' },
+    avalanche: { id: 'avalanche', name: 'Avalanche', symbol: 'AVAX', explorer: 'https://snowtrace.io', color: '#E84142', geckoId: 'avalanche', llamaChain: 'Avalanche' },
+    hyperevm: { id: 'hyperevm', name: 'HyperEVM', symbol: 'ETH', explorer: 'https://hyperevm.io', color: '#7C3AED', geckoId: 'hyperevm', llamaChain: 'Hyperliquid L1' },
+    robinhood: { id: 'robinhood', name: 'Robinhood', symbol: 'ETH', explorer: 'https://explorer.robinhood.com', color: '#000000', geckoId: 'robinhood', llamaChain: 'Robinhood Chain' }
   },
 
   // Protocol definitions with network availability
   PROTOCOLS: {
-    'uniswap-v3': { name: 'Uniswap V3', networks: ['ethereum', 'base', 'arbitrum', 'polygon', 'bsc'], color: '#FF007A', llamaProject: 'uniswap-v3' },
+    'uniswap-v3': { name: 'Uniswap V3', networks: ['ethereum', 'base', 'arbitrum', 'polygon', 'bsc', 'optimism', 'avalanche', 'hyperevm', 'robinhood'], color: '#FF007A', llamaProject: 'uniswap-v3' },
     'uniswap-v4': { name: 'Uniswap V4', networks: ['ethereum', 'base', 'arbitrum'], color: '#00D4AA', llamaProject: 'uniswap-v4', note: 'V4 data limited — may appear under V3 indexers' },
     'orca': { name: 'Orca', networks: ['solana'], color: '#FFD15C', llamaProject: 'orca' },
-    'raydium': { name: 'Raydium', networks: ['solana'], color: '#2BDEAC', llamaProject: 'raydium' }
+    'raydium': { name: 'Raydium', networks: ['solana'], color: '#2BDEAC', llamaProject: 'raydium' },
+    'morpho-blue': { name: 'Morpho Blue', networks: ['robinhood'], color: '#FF3E00', llamaProject: 'morpho-blue' }
   },
 
   // Priority assets for filtering
@@ -81,6 +86,7 @@ const CONFIG = {
     apyBase: { label: 'APY Base', default: false, group: 'yield' },
     apyReward: { label: 'APY Reward', default: false, group: 'yield' },
     volatility: { label: 'Volatility', default: true, group: 'risk' },
+    correlation: { label: 'Correlation', default: true, group: 'risk' },
     age: { label: 'Age', default: false, group: 'meta' },
     volumeTvlRatio: { label: 'Vol/TVL', default: true, group: 'efficiency' },
     inRange: { label: 'In Range', default: false, group: 'range' },
@@ -126,7 +132,7 @@ const CONFIG = {
   VIEW_PRESETS: {
     conservative: {
       label: 'Conservative',
-      poolColumns: ['protocol', 'network', 'pair', 'feeTier', 'tvl', 'apy', 'volumeTvlRatio', 'volatility', 'risk', 'score', 'source', 'link'],
+      poolColumns: ['protocol', 'network', 'pair', 'feeTier', 'tvl', 'apy', 'volumeTvlRatio', 'volatility', 'correlation', 'risk', 'score', 'source', 'link'],
       positionColumns: ['protocol', 'network', 'pair', 'valueCurrent', 'pnl', 'feesAccumulated', 'inRange', 'il', 'health', 'urgency', 'link'],
       sortBy: 'score',
       sortDir: 'desc'
