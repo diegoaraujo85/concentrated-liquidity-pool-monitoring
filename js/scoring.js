@@ -114,41 +114,47 @@ import { CONFIG } from './config.js';
     };
   }
 
-  // Normalize a value to 0-1 scale
-  function normalize(value, min, max, invert = false) {
-    if (max === min) return 0.5;
-    let normalized = Math.max(0, Math.min(1, (value - min) / (max - min)));
-    return invert ? 1 - normalized : normalized;
+  // Absolute thresholds for normalization (0-1 scale)
+  const TVL_THRESHOLDS = [100000, 1000000, 10000000]; // $100k, $1M, $10M
+  const VOLUME_THRESHOLDS = [10000, 100000, 1000000]; // $10k, $100k, $1M
+  const VOLUME_TVL_THRESHOLDS = [0.1, 0.3, 1.0];
+  const APR_THRESHOLDS = [5, 15, 30]; // %
+  const VOLATILITY_THRESHOLDS = [2, 5, 20]; // %
+  const AGE_THRESHOLDS = [7, 30, 90]; // days
+
+  function normalizeLinear(value, min, max, invert = false) {
+    if (value === null || value === undefined || value <= 0) return 0;
+    let n = (value - min) / (max - min);
+    n = Math.max(0, Math.min(1, n));
+    return invert ? 1 - n : n;
   }
 
-  // Score a pool
-  function scorePool(pool, allPools, profile = 'conservative') {
+  function normalizeTier(value, thresholds, invert = false) {
+    if (value === null || value === undefined || value <= 0) return 0;
+    // Find which tier bucket the value falls into
+    let tier = 0;
+    for (const t of thresholds) {
+      if (value >= t) tier++;
+    }
+    const maxTier = thresholds.length;
+    let n = tier / maxTier; // 0 to 1
+    n = Math.max(0, Math.min(1, n));
+    return invert ? 1 - n : n;
+  }
+
+  // Score a pool — absolute normalization (deterministic, independent of allPools)
+  function scorePool(pool, _allPools, profile = 'conservative') {
     const weights = CONFIG.SCORING[profile.toUpperCase()] || CONFIG.SCORING.CONSERVATIVE;
 
-    // Collect stats for normalization
-    const tvls = allPools.map(p => p.tvl).filter(v => v > 0);
-    const volumes = allPools.map(p => p.volume24h).filter(v => v > 0);
-    const ratios = allPools.map(p => p.volumeTvlRatio).filter(v => v > 0);
-    const ages = allPools.map(p => p.ageDays).filter(v => v !== null && v > 0);
-    const vols = allPools.map(p => p.volatility).filter(v => v > 0);
-    const aprs = allPools.map(p => p.apr).filter(v => v > 0);
-
-    const percentile = (arr, val) => {
-      if (arr.length === 0 || val === null || val === undefined) return 0.5;
-      const sorted = [...arr].sort((a, b) => a - b);
-      const idx = sorted.findIndex(v => v >= val);
-      return idx === -1 ? 1 : idx / sorted.length;
-    };
-
     const components = {
-      tvl: percentile(tvls, pool.tvl),
-      volume: percentile(volumes, pool.volume24h),
-      volumeTvlRatio: percentile(ratios, pool.volumeTvlRatio),
-      feeYield: percentile(aprs, pool.apr),
-      volatility: percentile(vols, pool.volatility), // higher vol = higher value, weight is negative for conservative
-      age: percentile(ages, pool.ageDays),
-      liquidityEffective: pool.tvl > 100000 ? normalize(pool.tvl, 100000, 10000000) : 0,
-      rangeRisk: pool.volatility > 0 ? normalize(pool.volatility, 0, 20) : 0.5
+      tvl: normalizeTier(pool.tvl, TVL_THRESHOLDS),
+      volume: normalizeTier(pool.volume24h, VOLUME_THRESHOLDS),
+      volumeTvlRatio: normalizeTier(pool.volumeTvlRatio, VOLUME_TVL_THRESHOLDS),
+      feeYield: normalizeTier(pool.apr, APR_THRESHOLDS),
+      volatility: normalizeTier(pool.volatility, VOLATILITY_THRESHOLDS),
+      age: normalizeTier(pool.ageDays, AGE_THRESHOLDS),
+      liquidityEffective: normalizeTier(pool.tvl, TVL_THRESHOLDS),
+      rangeRisk: normalizeTier(pool.volatility, VOLATILITY_THRESHOLDS),
     };
 
     // Weighted score

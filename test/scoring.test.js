@@ -205,3 +205,75 @@ describe('Scoring — walletSummary', () => {
     expect(result.byNetwork.Base).toBe(1);
   });
 });
+
+describe('Scoring — Normalização absoluta', () => {
+  const basePool = {
+    id: 'test-pool',
+    baseToken: 'ETH',
+    quoteToken: 'USDC',
+    tvl: 5000000,
+    volume24h: 1000000,
+    volumeTvlRatio: 0.2,
+    apr: 15,
+    volatility: 5,
+    ageDays: 30,
+    price: 3000,
+    dataQuality: { overall: 'good' },
+  };
+
+  it('score is deterministic — same pool, different allPools sets → same score', () => {
+    const poolsFew = [basePool];
+    const poolsMany = [basePool, ...Array.from({ length: 49 }, (_, i) => ({
+      id: `other-${i}`,
+      baseToken: 'USDC',
+      quoteToken: 'USDT',
+      tvl: 100000000,
+      volume24h: 50000000,
+      volumeTvlRatio: 0.5,
+      apr: 20,
+      volatility: 2,
+      ageDays: 90,
+      price: 1,
+      dataQuality: { overall: 'good' },
+    }))];
+
+    const scoreFew = Scoring.scorePool(basePool, poolsFew, 'conservative');
+    const scoreMany = Scoring.scorePool(basePool, poolsMany, 'conservative');
+
+    expect(scoreFew.score).toBe(scoreMany.score);
+  });
+
+  it('high TVL pool gets high score even when alone', () => {
+    const pools = [{ ...basePool, tvl: 50000000 }];
+    const result = Scoring.scorePool(pools[0], pools, 'conservative');
+    expect(result.score).toBeGreaterThan(70);
+  });
+
+  it('low TVL pool gets low score even when alone', () => {
+    const pools = [{ ...basePool, tvl: 10000, volume24h: 1000, volumeTvlRatio: 0.05, apr: 2, volatility: 25, ageDays: 1 }];
+    const result = Scoring.scorePool(pools[0], pools, 'conservative');
+    expect(result.score).toBeLessThanOrEqual(40);
+  });
+
+  it('high volume pool gets higher score than low volume pool', () => {
+    const highVol = { ...basePool, volume24h: 10000000 };
+    const lowVol = { ...basePool, volume24h: 10000 };
+    const pools = [highVol, lowVol];
+
+    const sHigh = Scoring.scorePool(highVol, pools, 'conservative');
+    const sLow = Scoring.scorePool(lowVol, pools, 'conservative');
+
+    expect(sHigh.score).toBeGreaterThan(sLow.score);
+  });
+
+  it('volatile pool gets lower score than stable pool (conservative)', () => {
+    const stable = { ...basePool, volatility: 1, pairType: 'stable' };
+    const volatile = { ...basePool, volatility: 25, pairType: 'volatile' };
+    const pools = [stable, volatile];
+
+    const sStable = Scoring.scorePool(stable, pools, 'conservative');
+    const sVolatile = Scoring.scorePool(volatile, pools, 'conservative');
+
+    expect(sStable.score).toBeGreaterThan(sVolatile.score);
+  });
+});
