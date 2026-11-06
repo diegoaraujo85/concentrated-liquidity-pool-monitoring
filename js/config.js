@@ -161,3 +161,17 @@ const CONFIG = {
     }
   }
 };
+
+// Deep freeze to prevent accidental mutation of configuration
+function deepFreeze(obj) {
+  Object.freeze(obj);
+  Object.getOwnPropertyNames(obj).forEach((name) => {
+    const prop = obj[name];
+    if (prop && typeof prop === 'object' && !Object.isFrozen(prop)) {
+      deepFreeze(prop);
+    }
+  });
+  return obj;
+}
+
+deepFreeze(CONFIG);
